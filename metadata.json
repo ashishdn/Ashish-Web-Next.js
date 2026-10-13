@@ -1,0 +1,6 @@
+{
+  "name": "BachelorBari - Bangladesh Bachelor Rental Platform",
+  "description": "ঢাকা, চট্টগ্রাম ও রাজশাহীর বিভিন্ন এলাকায় ব্যাচেলরদের উপযোগী ভাড়ার বাসা খুঁজুন এক জায়গায়।",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

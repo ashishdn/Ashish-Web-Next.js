@@ -3,42 +3,36 @@ import { initialProperties } from '../data/properties.js';
 
 const PropertyContext = createContext(null);
 
-const STORAGE_KEY = 'bachelorbari_properties';
-
 export function PropertyProvider({ children }) {
-  const [properties, setProperties] = useState(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed;
-        }
-      }
-    } catch (e) {
-      console.error('Failed to load properties from localStorage', e);
-    }
-    return initialProperties;
-  });
+  const [properties, setProperties] = useState(initialProperties);
 
-  // Save to localStorage whenever properties change
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(properties));
-    } catch (e) {
-      console.error('Failed to save properties to localStorage', e);
-    }
-  }, [properties]);
-
-  const addProperty = (newProp) => {
-    const formatted = {
-      ...newProp,
-      id: newProp.id || `prop-user-${Date.now()}`,
-      status: newProp.status || 'available',
-      createdAt: new Date().toISOString(),
+    let active = true;
+    const refresh = () => fetch('/api/properties')
+      .then((response) => response.ok ? response.json() : [])
+      .then((listings) => {
+        if (active && Array.isArray(listings)) {
+          setProperties((current) => [...listings, ...current.filter((item) => !item.isSubmitted)]);
+        }
+      })
+      .catch((error) => console.error('Could not load approved listings', error));
+    refresh();
+    window.addEventListener('bachelorbari:listings-updated', refresh);
+    return () => {
+      active = false;
+      window.removeEventListener('bachelorbari:listings-updated', refresh);
     };
-    setProperties((prev) => [formatted, ...prev]);
-    return formatted;
+  }, []);
+
+  const addProperty = async (newProp) => {
+    const response = await fetch('/api/properties', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newProp),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(result.error || 'Could not submit this listing.');
+    return result;
   };
 
   const updatePropertyStatus = (id, newStatus) => {
@@ -48,16 +42,14 @@ export function PropertyProvider({ children }) {
   };
 
   const deleteProperty = (id) => {
-    setProperties((prev) => prev.filter((prop) => prop.id !== id));
+    return fetch(`/api/properties/${encodeURIComponent(id)}`, { method: 'DELETE' }).then((response) => {
+      if (!response.ok) throw new Error('Could not delete this listing.');
+      setProperties((prev) => prev.filter((prop) => prop.id !== id));
+    });
   };
 
   const resetToDefaultData = () => {
     setProperties(initialProperties);
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(initialProperties));
-    } catch (e) {
-      console.error(e);
-    }
   };
 
   const getAvailableProperties = () => {

@@ -1,322 +1,60 @@
-import React, { useState, useMemo } from 'react';
-import { useLanguage } from '../context/LanguageContext.jsx';
-import { useProperties } from '../context/PropertyContext.jsx';
-import { useRouter, Link } from '../context/RouterContext.jsx';
-import { PriceDisplay, AvailabilityBadge } from '../components/PriceDisplay.jsx';
-import ConfirmDialog from '../components/ConfirmDialog.jsx';
-import EmptyState from '../components/EmptyState.jsx';
-import { districts } from '../data/districts.js';
-import {
-  LayoutDashboard,
-  CheckCircle,
-  Clock,
-  Home,
-  PlusCircle,
-  Trash2,
-  ExternalLink,
-  Search,
-  Filter,
-  AlertTriangle,
-  RotateCcw,
-} from 'lucide-react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Link } from '../context/RouterContext.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import { Plus, Trash2, Clock3, CheckCircle2, XCircle, LoaderCircle } from 'lucide-react';
+
+const statusStyles = {
+  pending: ['Pending review', 'bg-amber-50 text-amber-800'],
+  approved: ['Live', 'bg-emerald-50 text-emerald-800'],
+  rejected: ['Needs changes', 'bg-red-50 text-red-700'],
+};
 
 export default function LandlordDashboardPage() {
-  const { t, lang, toBnNumber } = useLanguage();
-  const {
-    properties,
-    stats,
-    updatePropertyStatus,
-    deleteProperty,
-    resetToDefaultData,
-  } = useProperties();
-  const { navigate } = useRouter();
+  const { user } = useAuth();
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [deleteTargetId, setDeleteTargetId] = useState(null);
+  const load = useCallback(async () => {
+    setLoading(true); setError('');
+    try {
+      const response = await fetch('/api/my/properties');
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Could not load your posts.');
+      setListings(data);
+    } catch (err) { setError(err.message); }
+    finally { setLoading(false); }
+  }, []);
+  useEffect(() => { load(); }, [load]);
 
-  // Filter properties
-  const filteredListings = useMemo(() => {
-    return properties.filter((p) => {
-      if (statusFilter !== 'all' && p.status !== statusFilter) return false;
-      if (searchQuery.trim()) {
-        const q = searchQuery.toLowerCase().trim();
-        const titleBn = (p.title.bn || '').toLowerCase();
-        const titleEn = (p.title.en || '').toLowerCase();
-        const districtSlug = (p.districtSlug || '').toLowerCase();
-        if (
-          !titleBn.includes(q) &&
-          !titleEn.includes(q) &&
-          !districtSlug.includes(q)
-        ) {
-          return false;
-        }
-      }
-      return true;
-    });
-  }, [properties, statusFilter, searchQuery]);
-
-  const handleDeleteConfirm = () => {
-    if (deleteTargetId) {
-      deleteProperty(deleteTargetId);
-      setDeleteTargetId(null);
-    }
+  const remove = async (id) => {
+    if (!window.confirm('Delete this property post? This cannot be undone.')) return;
+    try {
+      const response = await fetch(`/api/properties/${encodeURIComponent(id)}`, { method: 'DELETE' });
+      if (!response.ok) throw new Error('Could not delete this post.');
+      setListings((current) => current.filter((item) => item.id !== id));
+      window.dispatchEvent(new Event('bachelorbari:listings-updated'));
+    } catch (err) { setError(err.message); }
   };
 
-  return (
-    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Dashboard Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-stone-200 pb-5 mb-6">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">
-            {t.dashboard.title}
-          </h1>
-          <p className="mt-1 text-xs sm:text-sm text-stone-500">
-            {t.dashboard.subtitle}
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <button
-            type="button"
-            onClick={resetToDefaultData}
-            title="রিসেট ডেমো ডাটা"
-            className="flex items-center gap-1.5 rounded-lg border border-stone-200 bg-white px-3 py-2 text-xs font-medium text-stone-600 hover:bg-stone-50 transition-colors shadow-xs"
-          >
-            <RotateCcw className="h-3.5 w-3.5 text-stone-400" />
-            <span className="hidden sm:inline">রিসেট ডেমো</span>
-          </button>
-
-          <Link
-            to="/landlord/add-property"
-            className="flex items-center gap-1.5 rounded-lg bg-emerald-800 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-emerald-900 transition-colors"
-          >
-            <PlusCircle className="h-4 w-4" />
-            <span>{t.dashboard.addNewBtn}</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* Demo Notice Banner */}
-      <div className="mb-8 rounded-xl border border-stone-200 bg-stone-100/80 p-4 text-xs text-stone-700 flex items-start gap-3">
-        <AlertTriangle className="h-4 w-4 text-emerald-800 shrink-0 mt-0.5" />
-        <p className="leading-relaxed">{t.dashboard.demoBanner}</p>
-      </div>
-
-      {/* Summary KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-xs">
-          <span className="text-[11px] font-medium text-stone-500 block">
-            {t.dashboard.totalListings}
-          </span>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-stone-900 tabular-nums">
-              {toBnNumber(stats.total)}
-            </span>
-            <Home className="h-5 w-5 text-stone-300" />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-xs">
-          <span className="text-[11px] font-medium text-emerald-700 block">
-            {t.dashboard.availableCount}
-          </span>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-emerald-900 tabular-nums">
-              {toBnNumber(stats.available)}
-            </span>
-            <CheckCircle className="h-5 w-5 text-emerald-600" />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-xs">
-          <span className="text-[11px] font-medium text-amber-700 block">
-            {t.dashboard.bookedCount}
-          </span>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-amber-900 tabular-nums">
-              {toBnNumber(stats.booked)}
-            </span>
-            <Clock className="h-5 w-5 text-amber-500" />
-          </div>
-        </div>
-
-        <div className="rounded-xl border border-stone-200 bg-white p-4 shadow-xs">
-          <span className="text-[11px] font-medium text-stone-500 block">
-            {t.dashboard.rentedCount}
-          </span>
-          <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold text-stone-600 tabular-nums">
-              {toBnNumber(stats.rented)}
-            </span>
-            <CheckCircle className="h-5 w-5 text-stone-400" />
-          </div>
-        </div>
-      </div>
-
-      {/* Controls Bar: Search & Status Tabs */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 bg-white p-3 rounded-xl border border-stone-200">
-        {/* Status segmented filters */}
-        <div className="flex items-center gap-1 overflow-x-auto">
-          {[
-            { id: 'all', label: 'সবগুলো' },
-            { id: 'available', label: t.dashboard.availableCount },
-            { id: 'booked', label: t.dashboard.bookedCount },
-            { id: 'rented', label: t.dashboard.rentedCount },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              type="button"
-              onClick={() => setStatusFilter(tab.id)}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                statusFilter === tab.id
-                  ? 'bg-emerald-800 text-white shadow-xs'
-                  : 'text-stone-600 hover:bg-stone-100 hover:text-stone-900'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Quick search input */}
-        <div className="relative min-w-[200px]">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="লিস্টিং খুঁজুন..."
-            className="w-full rounded-lg border border-stone-200 bg-stone-50 py-1.5 pl-8 pr-3 text-xs text-stone-800 focus:border-emerald-700 focus:bg-white focus:outline-hidden"
-          />
-          <Search className="pointer-events-none absolute left-2.5 top-2 h-3.5 w-3.5 text-stone-400" />
-        </div>
-      </div>
-
-      {/* Management Table / Responsive Card List */}
-      {filteredListings.length > 0 ? (
-        <div className="overflow-hidden rounded-xl border border-stone-200 bg-white shadow-xs">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead>
-                <tr className="border-b border-stone-200 bg-stone-50/80 font-semibold text-stone-600">
-                  <th className="py-3.5 px-4">{t.dashboard.tableProperty}</th>
-                  <th className="py-3.5 px-4">{t.dashboard.tableLocation}</th>
-                  <th className="py-3.5 px-4">{t.dashboard.tableRent}</th>
-                  <th className="py-3.5 px-4">{t.dashboard.tableStatus}</th>
-                  <th className="py-3.5 px-4 text-right">{t.dashboard.tableActions}</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-stone-100">
-                {filteredListings.map((prop) => (
-                  <tr key={prop.id} className="hover:bg-stone-50/50 transition-colors">
-                    {/* Property info */}
-                    <td className="py-3.5 px-4 max-w-xs">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={
-                            prop.images && prop.images[0]
-                              ? prop.images[0]
-                              : '/src/assets/images/property_room_interior_1791874098305.jpg'
-                          }
-                          alt=""
-                          className="h-10 w-12 rounded-md object-cover bg-stone-100 shrink-0"
-                        />
-                        <div className="truncate">
-                          <Link
-                            to={`/property/${prop.slug}`}
-                            className="font-semibold text-stone-900 hover:text-emerald-800 truncate block"
-                          >
-                            {prop.title[lang] || prop.title.bn}
-                          </Link>
-                          <span className="text-[11px] text-stone-400 capitalize">
-                            {t.propertyTypes[prop.propertyType] || prop.propertyType}
-                          </span>
-                        </div>
-                      </div>
-                    </td>
-
-                    {/* Location */}
-                    <td className="py-3.5 px-4 whitespace-nowrap text-stone-600">
-                      <span className="capitalize font-medium text-stone-800">
-                        {prop.thanaSlug || prop.areaSlug}
-                      </span>
-                      <span className="text-stone-400 block text-[11px] capitalize">
-                        {prop.districtSlug}
-                      </span>
-                    </td>
-
-                    {/* Rent */}
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <PriceDisplay amount={prop.monthlyRent} className="text-xs" />
-                    </td>
-
-                    {/* Status */}
-                    <td className="py-3.5 px-4 whitespace-nowrap">
-                      <div className="flex items-center gap-2">
-                        <AvailabilityBadge status={prop.status} />
-
-                        {/* Status Change Selector */}
-                        <select
-                          value={prop.status}
-                          onChange={(e) => updatePropertyStatus(prop.id, e.target.value)}
-                          className="rounded-md border border-stone-200 bg-white py-1 px-2 text-[11px] text-stone-700 focus:border-emerald-700 focus:outline-hidden"
-                        >
-                          <option value="available">{t.status.available}</option>
-                          <option value="booked">{t.status.booked}</option>
-                          <option value="rented">{t.status.rented}</option>
-                        </select>
-                      </div>
-                    </td>
-
-                    {/* Actions */}
-                    <td className="py-3.5 px-4 text-right whitespace-nowrap">
-                      <div className="flex items-center justify-end gap-2">
-                        <Link
-                          to={`/property/${prop.slug}`}
-                          className="inline-flex items-center gap-1 rounded-md border border-stone-200 bg-white px-2.5 py-1 text-[11px] font-medium text-stone-700 hover:bg-stone-50"
-                          title="বাসাটি দেখুন"
-                        >
-                          <ExternalLink className="h-3 w-3 text-stone-400" />
-                          <span>দেখুন</span>
-                        </Link>
-
-                        <button
-                          type="button"
-                          onClick={() => setDeleteTargetId(prop.id)}
-                          className="inline-flex items-center gap-1 rounded-md border border-red-200 bg-white px-2.5 py-1 text-[11px] font-medium text-red-600 hover:bg-red-50 transition-colors"
-                          title={t.dashboard.deleteListing}
-                        >
-                          <Trash2 className="h-3 w-3" />
-                          <span>মুছুন</span>
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      ) : (
-        <EmptyState
-          title={t.dashboard.noListings}
-          description="বর্তমান ফিল্টারে কোনো বিজ্ঞাপন পাওয়া যায়নি।"
-          actionLabel={t.dashboard.addNewBtn}
-          onAction={() => navigate('/landlord/add-property')}
-        />
-      )}
-
-      {/* Delete Confirmation Dialog */}
-      <ConfirmDialog
-        isOpen={Boolean(deleteTargetId)}
-        title={t.dashboard.deleteConfirmTitle}
-        description={t.dashboard.deleteConfirmDesc}
-        confirmLabel={t.dashboard.confirmBtn}
-        cancelLabel={t.dashboard.cancelBtn}
-        isDestructive={true}
-        onConfirm={handleDeleteConfirm}
-        onCancel={() => setDeleteTargetId(null)}
-      />
+  return <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mb-8 flex flex-col gap-4 border-b border-stone-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
+      <div><p className="text-sm font-medium text-emerald-800">{user?.email}</p><h1 className="mt-1 text-3xl font-bold tracking-tight text-stone-900">My property posts</h1><p className="mt-2 text-sm text-stone-500">Track reviews and manage the homes you have submitted.</p></div>
+      <Link to="/landlord/add-property" className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-800 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-900"><Plus className="h-4 w-4" /> Post a property</Link>
     </div>
-  );
+    {error && <p role="alert" className="mb-5 rounded-xl bg-red-50 p-4 text-sm text-red-700">{error}</p>}
+    {loading ? <div className="flex justify-center py-20 text-emerald-800"><LoaderCircle className="h-6 w-6 animate-spin" /></div> : listings.length ? <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">{listings.map((item) => {
+      const [label, style] = statusStyles[item.moderationStatus] || statusStyles.pending;
+      return <article key={item.id} className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-xs">
+        <div className="aspect-[16/9] bg-stone-100"><img src={item.images?.[0] || '/src/assets/images/property_room_interior_1791874098305.jpg'} alt="" className="h-full w-full object-cover" /></div>
+        <div className="p-5"><div className="flex items-start justify-between gap-3"><h2 className="line-clamp-2 font-bold text-stone-900">{item.title?.en || item.title?.bn}</h2><span className={`shrink-0 rounded-full px-2.5 py-1 text-[11px] font-semibold ${style}`}>{label}</span></div>
+          <p className="mt-2 text-sm text-stone-500">{item.areaSlug}, {item.districtSlug}</p><p className="mt-3 font-semibold text-stone-800">৳{Number(item.monthlyRent).toLocaleString()} / month</p>
+          <div className="mt-4 flex items-center justify-between border-t border-stone-100 pt-4"><span className="inline-flex items-center gap-1.5 text-xs text-stone-400">{item.moderationStatus === 'approved' ? <CheckCircle2 className="h-4 w-4" /> : item.moderationStatus === 'rejected' ? <XCircle className="h-4 w-4" /> : <Clock3 className="h-4 w-4" />}{new Date(item.createdAt).toLocaleDateString()}</span>
+            {item.moderationStatus === 'approved' && <Link to={`/property/${item.slug}`} className="text-xs font-semibold text-emerald-800 hover:underline">View live post</Link>}
+            <button type="button" onClick={() => remove(item.id)} className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50"><Trash2 className="h-3.5 w-3.5" /> Delete</button>
+          </div>{item.moderationStatus === 'rejected' && <p className="mt-3 rounded-lg bg-red-50 p-3 text-xs text-red-700">This post was not approved. Contact the site administrator if you need help.</p>}
+        </div>
+      </article>;
+    })}</div> : <div className="rounded-2xl border border-dashed border-stone-300 bg-white px-6 py-16 text-center"><h2 className="text-lg font-bold text-stone-900">No posts yet</h2><p className="mt-2 text-sm text-stone-500">Your submissions and their review status will show up here.</p><Link to="/landlord/add-property" className="mt-5 inline-flex rounded-lg bg-emerald-800 px-4 py-2.5 text-sm font-semibold text-white">Post your first property</Link></div>}
+  </div>;
 }

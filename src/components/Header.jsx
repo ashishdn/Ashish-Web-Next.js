@@ -3,11 +3,13 @@ import { useLanguage } from '../context/LanguageContext.jsx';
 import { useRouter, Link } from '../context/RouterContext.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
 import { Home, Menu, X, PlusCircle, LayoutDashboard, Search, Info, ShieldCheck } from 'lucide-react';
+import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Header() {
   const { t, lang } = useLanguage();
   const { currentPath, navigate } = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAdmin, authClient } = useAuth();
 
   const isActive = (path) => currentPath === path;
 
@@ -16,7 +18,7 @@ export default function Header() {
     { to: '/search', label: t.nav.findHome },
     { to: '/for-landlords', label: t.nav.forLandlords },
     { to: '/about', label: t.nav.about },
-    { to: '/landlord/dashboard', label: t.nav.dashboard },
+    ...(user ? [{ to: isAdmin ? '/admin' : '/landlord/dashboard', label: isAdmin ? 'Admin dashboard' : t.nav.dashboard }] : []),
   ];
 
   return (
@@ -58,13 +60,17 @@ export default function Header() {
         <div className="hidden sm:flex items-center gap-3 shrink-0">
           <LanguageSwitcher />
 
-          <Link
+          {user ? <>
+          <Link to={isAdmin ? '/admin' : '/landlord/dashboard'} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-100"><LayoutDashboard className="h-4 w-4" />{isAdmin ? 'Admin' : 'My posts'}</Link>
+          <button type="button" onClick={() => authClient.signOut()} className="rounded-lg border border-stone-200 px-3 py-2 text-xs font-semibold text-stone-600 hover:bg-stone-50">Sign out</button>
+          </> : <Link to="/login" className="rounded-lg px-3 py-2 text-xs font-semibold text-stone-700 hover:bg-stone-100">Sign in</Link>}
+          {!isAdmin && <Link
             to="/landlord/add-property"
             className="inline-flex items-center gap-2 rounded-lg bg-emerald-800 px-4 py-2 text-xs font-semibold text-white shadow-xs transition-all hover:bg-emerald-900 hover:shadow-sm active:scale-98 whitespace-nowrap"
           >
             <PlusCircle className="h-4 w-4" />
             <span>{t.nav.postProperty}</span>
-          </Link>
+          </Link>}
         </div>
 
         {/* Mobile menu button */}
@@ -100,14 +106,15 @@ export default function Header() {
               </Link>
             ))}
             <div className="pt-2">
-              <Link
+              {user ? <button type="button" onClick={() => authClient.signOut()} className="w-full rounded-lg border border-stone-200 py-2.5 text-sm font-semibold text-stone-700">Sign out</button> : <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="mb-2 flex w-full justify-center rounded-lg py-2.5 text-sm font-semibold text-stone-700">Sign in</Link>}
+              {!isAdmin && <Link
                 to="/landlord/add-property"
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-800 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-emerald-900"
               >
                 <PlusCircle className="h-4 w-4" />
                 <span>{t.nav.postProperty}</span>
-              </Link>
+              </Link>}
             </div>
           </nav>
         </div>

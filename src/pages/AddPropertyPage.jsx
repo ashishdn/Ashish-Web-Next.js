@@ -22,6 +22,8 @@ export default function AddPropertyPage() {
   const { t, lang } = useLanguage();
   const { addProperty } = useProperties();
   const { navigate } = useRouter();
+  const [submitError, setSubmitError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form states
   const [formData, setFormData] = useState({
@@ -100,9 +102,20 @@ export default function AddPropertyPage() {
   const handleImageFileChange = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
-
-    const newUrls = files.map((file) => URL.createObjectURL(file));
-    setImageUrls((prev) => [...prev, ...newUrls]);
+    const oversized = files.find((file) => file.size > 2 * 1024 * 1024);
+    if (oversized) {
+      setSubmitError('Each photo must be 2 MB or smaller.');
+      e.target.value = '';
+      return;
+    }
+    Promise.all(files.map((file) => new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    }))).then((newUrls) => setImageUrls((prev) => [...prev, ...newUrls]))
+      .catch(() => setSubmitError('Could not read the selected photos.'));
+    e.target.value = '';
   };
 
   const handleRemoveImage = (index) => {
@@ -124,7 +137,7 @@ export default function AddPropertyPage() {
     return Object.keys(err).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) {
       window.scrollTo({ top: 100, behavior: 'smooth' });
@@ -208,8 +221,18 @@ export default function AddPropertyPage() {
       landlordId: 'landlord-001',
     };
 
-    addProperty(newProperty);
-    setSubmittedPropertySlug(slug);
+    newProperty.landlordName = formData.landlordName;
+    newProperty.landlordPhone = formData.landlordPhone;
+    setIsSubmitting(true);
+    setSubmitError('');
+    try {
+      const saved = await addProperty(newProperty);
+      setSubmittedPropertySlug(saved.slug || slug);
+    } catch (error) {
+      setSubmitError(error.message || 'Could not submit your listing.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -231,6 +254,7 @@ export default function AddPropertyPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-10">
+        {submitError && <p role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{submitError}</p>}
         {/* SECTION 1: BASIC PROPERTY INFORMATION */}
         <div className="rounded-2xl border border-stone-200 bg-white p-6 sm:p-8">
           <h2 className="text-base font-bold text-stone-900 mb-5 flex items-center gap-2">
@@ -680,7 +704,7 @@ export default function AddPropertyPage() {
             type="submit"
             className="rounded-xl bg-emerald-800 px-7 py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:bg-emerald-900 active:scale-98 transition-all"
           >
-            {t.addProperty.submitBtn}
+            {isSubmitting ? 'Submitting for review…' : t.addProperty.submitBtn}
           </button>
         </div>
       </form>
@@ -697,18 +721,9 @@ export default function AddPropertyPage() {
               {t.addProperty.successTitle}
             </h3>
 
-            <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed">
-              {t.addProperty.successDesc}
-            </p>
+            <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed">Your post is saved and waiting for admin review. It will appear publicly after approval. You can follow its status in your dashboard.</p>
 
             <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link
-                to={`/property/${submittedPropertySlug}`}
-                className="w-full sm:w-auto rounded-lg bg-emerald-800 px-5 py-2.5 text-xs font-semibold text-white shadow-xs hover:bg-emerald-900"
-              >
-                {t.addProperty.viewListing}
-              </Link>
-
               <Link
                 to="/landlord/dashboard"
                 className="w-full sm:w-auto rounded-lg border border-stone-200 bg-stone-50 px-5 py-2.5 text-xs font-semibold text-stone-700 hover:bg-stone-100"

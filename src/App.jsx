@@ -13,9 +13,21 @@ import LandlordDashboardPage from './pages/LandlordDashboardPage.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ForLandlordsPage from './pages/ForLandlordsPage.jsx';
 import LegalPage from './pages/LegalPage.jsx';
+import AuthPage from './pages/AuthPage.jsx';
+import AdminDashboardPage from './pages/AdminDashboardPage.jsx';
+import { AuthProvider, useAuth } from './context/AuthContext.jsx';
 
 function RouteSwitch() {
   const { currentPath } = useRouter();
+  const { user, isAdmin, isPending } = useAuth();
+
+  if (isPending) return <div className="mx-auto max-w-7xl px-4 py-20 text-center text-stone-500">Loading your account…</div>;
+
+  if (currentPath === '/login' || currentPath === '/signup') return <AuthPage initialMode={currentPath === '/signup' ? 'signup' : 'login'} />;
+  if (currentPath === '/admin/login' || currentPath === '/admin/signup') return <AuthPage initialMode={currentPath === '/admin/signup' ? 'signup' : 'login'} adminRequired destination="/admin" />;
+  if (currentPath === '/admin') return isAdmin ? <AdminDashboardPage /> : <AuthPage initialMode="login" adminRequired destination="/admin" />;
+  if (currentPath === '/landlord/dashboard') return user ? <LandlordDashboardPage /> : <AuthPage initialMode="login" destination="/landlord/dashboard" />;
+  if (currentPath === '/landlord/add-property') return user ? <AddPropertyPage /> : <AuthPage initialMode="login" destination="/landlord/add-property" />;
 
   // Route matching
   if (currentPath === '/' || currentPath === '') {
@@ -24,14 +36,6 @@ function RouteSwitch() {
 
   if (currentPath === '/search') {
     return <SearchPage />;
-  }
-
-  if (currentPath === '/landlord/add-property') {
-    return <AddPropertyPage />;
-  }
-
-  if (currentPath === '/landlord/dashboard') {
-    return <LandlordDashboardPage />;
   }
 
   if (currentPath === '/about') {
@@ -73,13 +77,15 @@ export default function App() {
     <LanguageProvider>
       <PropertyProvider>
         <RouterProvider>
-          <div className="flex min-h-screen flex-col bg-stone-50 text-stone-900">
-            <Header />
-            <main className="flex-1">
-              <RouteSwitch />
-            </main>
-            <Footer />
-          </div>
+          <AuthProvider>
+            <div className="flex min-h-screen flex-col bg-stone-50 text-stone-900">
+              <Header />
+              <main className="flex-1">
+                <RouteSwitch />
+              </main>
+              <Footer />
+            </div>
+          </AuthProvider>
         </RouterProvider>
       </PropertyProvider>
     </LanguageProvider>

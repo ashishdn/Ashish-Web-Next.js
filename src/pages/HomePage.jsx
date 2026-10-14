@@ -301,7 +301,7 @@ export default function HomePage() {
       </section>
 
       {/* SECTION F: LANDLORD CALL TO ACTION */}
-      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-6">
+      <section className="mx-auto max-w-7xl pb-12 px-4 sm:px-6 lg:px-8 mb-6">
         <div className="rounded-3xl bg-emerald-900 p-8 sm:p-12 text-white relative overflow-hidden">
           <div className="relative z-10 max-w-2xl">
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight">

@@ -21,4 +21,4 @@ The server reads `.env` automatically. Set production environment values through
 - `/landlord/dashboard` shows only the signed-in owner's submissions and review status. The owner can delete their own post.
 - `/admin` is available only to users whose email is in `ADMIN_EMAILS`; use `/admin/signup` for the allowlisted administrator account. The API independently checks the stored admin role on every admin request.
 - Posts start as `pending` and only appear on public pages after approval.
-- Existing sample listings are retained as demo content in the frontend.
+- Public property listings are loaded from MongoDB. The built-in sample property array is no longer used by the app.

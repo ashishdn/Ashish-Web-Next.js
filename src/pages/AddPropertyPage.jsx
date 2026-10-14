@@ -102,6 +102,11 @@ export default function AddPropertyPage() {
   const handleImageFileChange = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
+    if (imageUrls.length + files.length > 5) {
+      setSubmitError('You can add up to 5 photos per property.');
+      e.target.value = '';
+      return;
+    }
     const oversized = files.find((file) => file.size > 2 * 1024 * 1024);
     if (oversized) {
       setSubmitError('Each photo must be 2 MB or smaller.');
@@ -246,11 +251,7 @@ export default function AddPropertyPage() {
           {t.addProperty.subtitle}
         </p>
 
-        {/* Demo disclaimer banner */}
-        <div className="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3.5 text-xs text-amber-900 flex items-start gap-2.5">
-          <AlertCircle className="h-4 w-4 text-amber-700 shrink-0 mt-0.5" />
-          <span>{t.addProperty.demoNotice}</span>
-        </div>
+        <p className="mt-3 text-xs text-stone-500">আপনার পোস্ট MongoDB-তে সংরক্ষিত হবে এবং অনুমোদনের পর সবার কাছে দেখা যাবে।</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-10">

@@ -13,7 +13,7 @@ const database = await getDatabase();
 const properties = database.collection('properties');
 
 app.all('/api/auth/*', toNodeHandler(auth));
-app.use(express.json({ limit: '12mb' }));
+app.use(express.json({ limit: '15mb' }));
 
 async function signedIn(req, res, next) {
   try {
@@ -48,9 +48,19 @@ app.get('/api/properties', asyncRoute(async (_req, res) => {
   })));
 }));
 
+app.get('/api/properties/:slug', asyncRoute(async (req, res) => {
+  const listing = await properties.findOne({
+    $or: [{ slug: req.params.slug }, { id: req.params.slug }],
+    moderationStatus: 'approved',
+    status: { $ne: 'removed' },
+  }, { projection: { _id: 0, ownerId: 0, ownerEmail: 0, reviewedBy: 0, reviewedAt: 0 } });
+  if (!listing) return res.status(404).json({ error: 'Listing not found.' });
+  res.json({ ...listing, isSubmitted: true });
+}));
+
 app.post('/api/properties', signedIn, asyncRoute(async (req, res) => {
   const listing = req.body;
-  if (!listing?.title?.bn || !listing?.address?.bn || !Number.isFinite(Number(listing.monthlyRent))) {
+  if (!listing?.title?.bn || !listing?.address?.bn || !Number.isFinite(Number(listing.monthlyRent)) || Number(listing.monthlyRent) <= 0) {
     return res.status(400).json({ error: 'Please provide a title, address, and valid rent.' });
   }
   const id = crypto.randomUUID();

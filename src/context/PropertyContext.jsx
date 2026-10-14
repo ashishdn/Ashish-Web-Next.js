@@ -1,21 +1,23 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { initialProperties } from '../data/properties.js';
 
 const PropertyContext = createContext(null);
 
 export function PropertyProvider({ children }) {
-  const [properties, setProperties] = useState(initialProperties);
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let active = true;
     const refresh = () => fetch('/api/properties')
-      .then((response) => response.ok ? response.json() : [])
-      .then((listings) => {
-        if (active && Array.isArray(listings)) {
-          setProperties((current) => [...listings, ...current.filter((item) => !item.isSubmitted)]);
-        }
+      .then((response) => {
+        if (!response.ok) throw new Error('Could not load property listings.');
+        return response.json();
       })
-      .catch((error) => console.error('Could not load approved listings', error));
+      .then((listings) => {
+        if (active && Array.isArray(listings)) setProperties(listings);
+      })
+      .catch((error) => console.error('Could not load approved listings', error))
+      .finally(() => { if (active) setLoading(false); });
     refresh();
     window.addEventListener('bachelorbari:listings-updated', refresh);
     return () => {
@@ -46,10 +48,6 @@ export function PropertyProvider({ children }) {
       if (!response.ok) throw new Error('Could not delete this listing.');
       setProperties((prev) => prev.filter((prop) => prop.id !== id));
     });
-  };
-
-  const resetToDefaultData = () => {
-    setProperties(initialProperties);
   };
 
   const getAvailableProperties = () => {
@@ -85,12 +83,12 @@ export function PropertyProvider({ children }) {
     <PropertyContext.Provider
       value={{
         properties,
+        loading,
         availableProperties: getAvailableProperties(),
         stats,
         addProperty,
         updatePropertyStatus,
         deleteProperty,
-        resetToDefaultData,
         getPropertyBySlug,
         getDistrictCount,
         getAreaCount,

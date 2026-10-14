@@ -54,7 +54,7 @@ export default function LegalPage({ type = 'terms' }) {
                 ১. তথ্য সংরক্ষণ নীতি
               </h2>
               <p>
-                ব্যাচেলরবাড়ি কোনো কেন্দ্রীয় সার্ভারে ব্যক্তিগত তথ্য বিক্রি বা প্রেরণ করে না। ডেমো ফর্মের মাধ্যমে প্রবেশ করানো তথ্য ব্যবহারকারীর ব্রাউজারের লোকাল স্টোরেজে (localStorage) সংরক্ষিত থাকে।
+                BachelorBari account details and submitted property listings are stored in the connected database. Listings are shown publicly only after administrator approval.
               </p>
             </div>
             <div>

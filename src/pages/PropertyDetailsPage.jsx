@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { useProperties } from '../context/PropertyContext.jsx';
 import { useRouter, Link } from '../context/RouterContext.jsx';
@@ -31,14 +31,26 @@ import {
 
 export default function PropertyDetailsPage({ slug }) {
   const { t, lang, toBnNumber, formatBDT } = useLanguage();
-  const { getPropertyBySlug, availableProperties } = useProperties();
+  const { getPropertyBySlug, availableProperties, properties, loading } = useProperties();
   const { navigate } = useRouter();
 
-  const property = getPropertyBySlug(slug);
+  const [remoteProperty, setRemoteProperty] = useState(null);
+  const property = getPropertyBySlug(slug) || remoteProperty;
+
+  useEffect(() => {
+    if (loading || getPropertyBySlug(slug)) return;
+    let active = true;
+    fetch(`/api/properties/${encodeURIComponent(slug)}`)
+      .then((response) => response.ok ? response.json() : null)
+      .then((listing) => { if (active) setRemoteProperty(listing); })
+      .catch((error) => console.error('Could not load property details', error));
+    return () => { active = false; };
+  }, [slug, loading, properties]);
 
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [showPhone, setShowPhone] = useState(false);
 
+  if (!property && loading) return <div className="py-20 text-center text-stone-500">Loading property…</div>;
   if (!property) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-20 text-center">
@@ -60,7 +72,11 @@ export default function PropertyDetailsPage({ slug }) {
     );
   }
 
-  const landlord = getLandlordById(property.landlordId);
+  const landlord = getLandlordById(property.landlordId) || {
+    name: { bn: property.landlordName || 'বাড়িওয়ালা', en: property.landlordName || 'Landlord' },
+    role: { bn: 'বাড়িওয়ালা', en: 'Landlord' },
+    phone: property.landlordPhone || '',
+  };
 
   // Lookup location details
   const districtObj = districts.find((d) => d.slug === property.districtSlug);

@@ -1,7 +1,9 @@
+'use client';
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { useRouter, Link } from '../context/RouterContext.jsx';
 import { districts } from '../data/districts.js';
+import brandLogo from '../assets/images/Bachelor Bari Bilingual Logo.png';
 import { MapPin, Mail, Phone, ShieldCheck, Heart } from 'lucide-react';
 
 export default function Footer() {
@@ -13,13 +15,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Col */}
           <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center gap-2.5 text-white">
-              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-white font-bold text-base">
-                ব
-              </span>
-              <span className="text-xl font-bold tracking-tight text-white">
-                {lang === 'bn' ? 'ব্যাচেলরবাড়ি' : 'BachelorBari'}
-              </span>
+            <Link to="/" className="inline-flex rounded-xl bg-white p-2">
+              <img src={brandLogo?.src || brandLogo} alt="Bachelor Bari bilingual logo" className="h-12 w-auto max-w-[240px] object-contain" />
             </Link>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-stone-400">
               {t.footer.description}

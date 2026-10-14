@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from '../context/RouterContext.jsx';
 import { useAuth } from '../context/AuthContext.jsx';

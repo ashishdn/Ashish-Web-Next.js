@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+'use client';
+import React, { createContext, useContext } from 'react';
 import { authClient } from '../lib/auth-client.js';
 
 const AuthContext = createContext(null);

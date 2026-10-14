@@ -1,12 +1,14 @@
+'use client';
 import React, { useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { useRouter, Link } from '../context/RouterContext.jsx';
 import LanguageSwitcher from './LanguageSwitcher.jsx';
+import brandLogo from '../assets/images/Bachelor Bari Bilingual Logo.png';
 import { Home, Menu, X, PlusCircle, LayoutDashboard, Search, Info, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 
 export default function Header() {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const { currentPath, navigate } = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { user, isAdmin, authClient } = useAuth();
@@ -24,21 +26,14 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-40 w-full border-b border-stone-200/80 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-8 px-4 py-3.5 sm:px-6 lg:px-8">
-        {/* Zone 1: Brand Wordmark */}
+        {/* Zone 1: Brand Logo */}
         <Link
           to="/"
-          className="flex items-center gap-2.5 text-stone-900 group shrink-0"
+          className="flex shrink-0 items-center rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-800"
+          aria-label="BachelorBari home"
         >
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-800 text-white font-bold text-lg shadow-xs transition-transform group-hover:scale-105">
-            ব
-          </span>
-          <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tight text-emerald-950">
-              {lang === 'bn' ? 'ব্যাচেলরবাড়ি' : 'BachelorBari'}
-            </span>
-          </div>
+          <img src={brandLogo?.src || brandLogo} alt="Bachelor Bari bilingual logo" className="h-10 w-auto max-w-[190px] object-contain sm:h-12 sm:max-w-[235px]" />
         </Link>
-
         {/* Zone 2: Navigation Links */}
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-stone-600">
           {navLinks.map((link) => (

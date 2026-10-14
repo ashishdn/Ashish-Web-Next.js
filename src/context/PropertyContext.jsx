@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const PropertyContext = createContext(null);
@@ -19,10 +20,14 @@ export function PropertyProvider({ children }) {
       .catch((error) => console.error('Could not load approved listings', error))
       .finally(() => { if (active) setLoading(false); });
     refresh();
-    window.addEventListener('bachelorbari:listings-updated', refresh);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('bachelorbari:listings-updated', refresh);
+    }
     return () => {
       active = false;
-      window.removeEventListener('bachelorbari:listings-updated', refresh);
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('bachelorbari:listings-updated', refresh);
+      }
     };
   }, []);
 

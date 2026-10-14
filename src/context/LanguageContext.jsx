@@ -1,30 +1,37 @@
+'use client';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations, toBnNumber, formatBDT } from '../data/translations.js';
 
 const LanguageContext = createContext(null);
 
 export function LanguageProvider({ children }) {
-  const [lang, setLangState] = useState(() => {
-    try {
-      const saved = localStorage.getItem('bachelorbari_lang');
-      return saved === 'en' ? 'en' : 'bn';
-    } catch {
-      return 'bn';
-    }
-  });
+  const [lang, setLangState] = useState('bn');
 
   const setLang = (newLang) => {
     setLangState(newLang);
     try {
-      localStorage.setItem('bachelorbari_lang', newLang);
-      document.documentElement.lang = newLang;
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('bachelorbari_lang', newLang);
+        document.documentElement.lang = newLang;
+      }
     } catch (e) {
       console.error(e);
     }
   };
 
   useEffect(() => {
-    document.documentElement.lang = lang;
+    try {
+      const saved = localStorage.getItem('bachelorbari_lang');
+      if (saved === 'en') setLangState('en');
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+    }
   }, [lang]);
 
   const t = translations[lang] || translations.bn;

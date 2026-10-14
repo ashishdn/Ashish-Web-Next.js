@@ -1,20 +1,26 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+'use client';
+import React, { createContext, useContext, useMemo } from 'react';
+import { useRouter as useNextRouter, usePathname, useSearchParams } from 'next/navigation';
+import NextLink from 'next/link';
 
 const RouterContext = createContext(null);
 
 export function RouterProvider({ children }) {
-  const [currentPath, setCurrentPath] = useState(() => window.location.pathname || '/');
-  const [queryString, setQueryString] = useState(() => window.location.search || '');
+  const nextRouter = useNextRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const handlePopState = () => {
-      setCurrentPath(window.location.pathname || '/');
-      setQueryString(window.location.search || '');
-    };
+  const queryParams = useMemo(() => {
+    const params = {};
+    if (searchParams) {
+      for (const [key, value] of searchParams.entries()) {
+        params[key] = value;
+      }
+    }
+    return params;
+  }, [searchParams]);
 
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  const queryString = searchParams ? searchParams.toString() : '';
 
   const navigate = (to, params = {}) => {
     let url = to;
@@ -25,31 +31,15 @@ export function RouterProvider({ children }) {
       const search = new URLSearchParams(queryEntries).toString();
       url += (url.includes('?') ? '&' : '?') + search;
     }
-
-    if (window.location.pathname + window.location.search !== url) {
-      window.history.pushState({}, '', url);
-      const [path, search] = url.split('?');
-      setCurrentPath(path || '/');
-      setQueryString(search ? `?${search}` : '');
-    }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const getQueryParams = () => {
-    const search = new URLSearchParams(queryString);
-    const params = {};
-    for (const [key, value] of search.entries()) {
-      params[key] = value;
-    }
-    return params;
+    nextRouter.push(url);
   };
 
   return (
     <RouterContext.Provider
       value={{
-        currentPath,
-        queryString,
-        queryParams: getQueryParams(),
+        currentPath: pathname || '/',
+        queryString: queryString ? `?${queryString}` : '',
+        queryParams,
         navigate,
       }}
     >
@@ -67,17 +57,20 @@ export function useRouter() {
 }
 
 export function Link({ to, params, className, children, onClick, ...props }) {
-  const { navigate } = useRouter();
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    if (onClick) onClick(e);
-    navigate(to, params);
-  };
+  let href = to || '/';
+  if (params) {
+    const queryEntries = Object.entries(params).filter(
+      ([, val]) => val !== undefined && val !== null && val !== ''
+    );
+    if (queryEntries.length > 0) {
+      const search = new URLSearchParams(queryEntries).toString();
+      href += (href.includes('?') ? '&' : '?') + search;
+    }
+  }
 
   return (
-    <a href={to} onClick={handleClick} className={className} {...props}>
+    <NextLink href={href} onClick={onClick} className={className} {...props}>
       {children}
-    </a>
+    </NextLink>
   );
 }

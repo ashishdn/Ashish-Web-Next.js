@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Building2, Eye, EyeOff, LoaderCircle } from 'lucide-react';
 import { Link, useRouter } from '../context/RouterContext.jsx';

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../context/LanguageContext.jsx';
 import { useProperties } from '../context/PropertyContext.jsx';
@@ -7,6 +8,7 @@ import { districts } from '../data/districts.js';
 import { locations } from '../data/locations.js';
 import { PriceDisplay, AvailabilityBadge } from '../components/PriceDisplay.jsx';
 import PropertyCard from '../components/PropertyCard.jsx';
+import PageLoader from '../components/PageLoader.jsx';
 import {
   MapPin,
   Bed,
@@ -35,22 +37,29 @@ export default function PropertyDetailsPage({ slug }) {
   const { navigate } = useRouter();
 
   const [remoteProperty, setRemoteProperty] = useState(null);
+  const [remoteLoading, setRemoteLoading] = useState(true);
   const property = getPropertyBySlug(slug) || remoteProperty;
 
   useEffect(() => {
-    if (loading || getPropertyBySlug(slug)) return;
+    if (loading) return;
+    if (getPropertyBySlug(slug)) {
+      setRemoteLoading(false);
+      return;
+    }
     let active = true;
+    setRemoteLoading(true);
     fetch(`/api/properties/${encodeURIComponent(slug)}`)
       .then((response) => response.ok ? response.json() : null)
       .then((listing) => { if (active) setRemoteProperty(listing); })
-      .catch((error) => console.error('Could not load property details', error));
+      .catch((error) => console.error('Could not load property details', error))
+      .finally(() => { if (active) setRemoteLoading(false); });
     return () => { active = false; };
   }, [slug, loading, properties]);
 
   const [activeImgIndex, setActiveImgIndex] = useState(0);
   const [showPhone, setShowPhone] = useState(false);
 
-  if (!property && loading) return <div className="py-20 text-center text-stone-500">Loading property…</div>;
+  if (!property && (loading || remoteLoading)) return <PageLoader message="বাসার বিস্তারিত লোড হচ্ছে" />;
   if (!property) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-20 text-center">

@@ -22,6 +22,7 @@ function emptyProject() {
     title: '',
     slug: '',
     category: '',
+    siteUrl: '',
     demoDomain: '',
     description: '',
     technologies: '',
@@ -332,6 +333,7 @@ export default function AdminDashboard() {
                 <Field label="URL slug *" value={form.slug} required onChange={(event) => updateField('slug', slugify(event.target.value))} placeholder="my-project-name" />
                 <Field label="Category *" value={form.category} required onChange={(event) => updateField('category', event.target.value)} />
                 <Field label="Client / brand" value={form.client} onChange={(event) => updateField('client', event.target.value)} />
+                <Field label="Live website URL" type="url" value={form.siteUrl} onChange={(event) => updateField('siteUrl', event.target.value)} placeholder="https://example.com" />
                 <Field label="Demo domain or URL" value={form.demoDomain} onChange={(event) => updateField('demoDomain', event.target.value)} placeholder="example.com" />
                 <Field label="Technologies" value={form.technologies} onChange={(event) => updateField('technologies', event.target.value)} placeholder="WordPress, Elementor Pro, JetEngine" />
                 <Field label="Year" value={form.year} onChange={(event) => updateField('year', event.target.value)} />

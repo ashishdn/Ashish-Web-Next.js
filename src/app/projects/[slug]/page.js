@@ -219,27 +219,25 @@ export default async function ProjectDetailPage({ params }) {
               </div>
             </div>
 
-            {/* Mockup Preview Card */}
+            {/* Live website link */}
             <div className="card-base p-6 sm:p-7 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-3xl shadow-2xs">
               <h3 className="font-mono text-xs font-semibold tracking-wider text-[var(--text-muted)] uppercase mb-4">
-                DEMO ENVIRONMENT
+                LIVE WEBSITE
               </h3>
-              <div className="rounded-xl p-4 bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] mb-4 text-center">
-                <span className="block font-mono text-xs text-[var(--text-accent)] font-semibold mb-1">
-                  {project.demoDomain}
-                </span>
-                <span className="text-[11px] text-[var(--text-muted)]">
-                  Protected Sandboxed Demo
-                </span>
-              </div>
-              <Button
-                href="/#contact"
-                variant="primary"
-                size="md"
-                className="w-full text-xs"
-              >
-                Request Similar Build
-              </Button>
+              {project.siteUrl ? (
+                <>
+                  <div className="rounded-xl p-4 bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] mb-4 text-center">
+                    <span className="block font-mono text-xs text-[var(--text-accent)] font-semibold break-all">
+                      {project.demoDomain || project.siteUrl.replace(/^https?:\/\//i, '').split('/')[0]}
+                    </span>
+                  </div>
+                  <Button href={project.siteUrl} target="_blank" rel="noopener noreferrer" variant="primary" size="md" className="w-full text-xs">
+                    Visit Website
+                  </Button>
+                </>
+              ) : (
+                <p className="text-sm text-[var(--text-muted)]">Live website link is not available yet.</p>
+              )}
             </div>
 
             {/* Next Project card */}

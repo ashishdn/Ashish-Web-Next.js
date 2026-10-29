@@ -1,9 +1,16 @@
 ﻿import React from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Globe, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Globe, CheckCircle2 } from 'lucide-react';
 import Badge from './Badge';
 
 export default function ProjectCard({ project }) {
+  const previewItems = project.metrics?.length
+    ? project.metrics.slice(1, 3)
+    : (project.caseStudy?.features || []).slice(0, 2).map((feature, index) => ({
+        label: `FEATURE 0${index + 1}`,
+        value: feature,
+      }));
+
   return (
     <div className="card-base group flex flex-col justify-between h-full bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-3xl overflow-hidden shadow-2xs hover:border-[var(--border-accent)]">
       {/* Category header */}
@@ -30,10 +37,24 @@ export default function ProjectCard({ project }) {
             </div>
 
             {/* Small demo domain */}
-            <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-secondary)] truncate max-w-[200px]">
-              <Globe className="w-3 h-3 text-[var(--text-accent)] shrink-0" />
-              <span className="truncate">{project.demoDomain}</span>
-            </div>
+            {project.siteUrl ? (
+              <a
+                href={project.siteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Open ${project.client || project.title} website in a new tab`}
+                className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-secondary)] hover:text-[var(--text-accent)] hover:border-[var(--border-accent)] transition-colors max-w-[200px]"
+              >
+                <Globe className="w-3 h-3 text-[var(--text-accent)] shrink-0" />
+                <span className="truncate">{project.demoDomain || project.siteUrl.replace(/^https?:\/\//i, '').split('/')[0]}</span>
+                <ExternalLink className="w-3 h-3 shrink-0" />
+              </a>
+            ) : (
+              <div className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[var(--bg-tertiary)] border border-[var(--border-subtle)] text-[10px] font-mono text-[var(--text-secondary)] truncate max-w-[200px]">
+                <Globe className="w-3 h-3 text-[var(--text-accent)] shrink-0" />
+                <span className="truncate">{project.demoDomain}</span>
+              </div>
+            )}
 
             <div className="w-8 shrink-0 text-right">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent-secondary)] animate-pulse" />
@@ -41,7 +62,7 @@ export default function ProjectCard({ project }) {
           </div>
 
           {/* Browser Preview Content Area */}
-          <div className="p-4 sm:p-5 aspect-[16/10] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-tertiary)] to-[var(--accent-primary-soft)] flex flex-col justify-between relative overflow-hidden group-hover:scale-[1.005] transition-transform duration-[320ms] ease-out">
+          <div className="p-4 sm:p-5 aspect-[16/10] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-tertiary)] to-[var(--accent-primary-soft)] flex flex-col justify-between relative overflow-hidden">
             {/* Ambient decorative glow */}
             <div
               className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-20 pointer-events-none"
@@ -54,9 +75,11 @@ export default function ProjectCard({ project }) {
                 <span className="text-[10px] font-mono font-bold tracking-wider uppercase text-[var(--text-primary)] bg-[var(--bg-card)] px-2 py-0.5 rounded border border-[var(--border-subtle)]">
                   {project.client}
                 </span>
-                <span className="text-[10px] font-mono text-[var(--accent-secondary)] font-semibold bg-[var(--accent-secondary-soft)] px-2 py-0.5 rounded border border-[var(--border-teal)]">
-                  {project.metrics?.[0]?.value || '98/100'} Speed
-                </span>
+                {project.metrics?.[0] && (
+                  <span className="text-[10px] font-mono text-[var(--accent-secondary)] font-semibold bg-[var(--accent-secondary-soft)] px-2 py-0.5 rounded border border-[var(--border-teal)]">
+                    {project.metrics[0].value} {project.metrics[0].label}
+                  </span>
+                )}
               </div>
 
               <div className="pt-2">
@@ -70,20 +93,18 @@ export default function ProjectCard({ project }) {
             </div>
 
             {/* Mini metrics bar */}
-            <div className="relative z-10 grid grid-cols-2 gap-3 bg-[var(--bg-card)]/70 backdrop-blur-xs px-4 py-3.5 rounded-md border border-[var(--border-subtle)]">
-              <div>
-                <span className="block text-[9px] font-mono text-[var(--text-muted)]">LOAD TIME</span>
-                <span className="text-[11px] font-bold font-mono text-[var(--text-primary)]">
-                  {project.metrics?.[1]?.value || '< 0.8s'}
-                </span>
+            {previewItems.length > 0 && (
+              <div className="relative z-10 grid grid-cols-2 gap-3 bg-[var(--bg-card)]/70 backdrop-blur-xs px-4 py-3.5 rounded-md border border-[var(--border-subtle)]">
+                {previewItems.map((item, index) => (
+                  <div key={`${item.label}-${index}`} className="min-w-0">
+                    <span className="block text-[9px] font-mono text-[var(--text-muted)]">{item.label}</span>
+                    <span className="block text-[11px] font-semibold text-[var(--text-primary)] line-clamp-2">
+                      {item.value}
+                    </span>
+                  </div>
+                ))}
               </div>
-              <div>
-                <span className="block text-[9px] font-mono text-[var(--text-muted)]">CONVERSION</span>
-                <span className="text-[11px] font-bold font-mono text-[var(--accent-secondary)]">
-                  {project.metrics?.[2]?.value || '+140%'}
-                </span>
-              </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -117,9 +138,7 @@ export default function ProjectCard({ project }) {
             <span>View Case Study</span>
             <ArrowUpRight className="w-4 h-4 text-[var(--text-accent)] transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
           </Link>
-          <span className="text-[11px] font-mono text-[var(--text-muted)]">
-            {project.year || '2024'}
-          </span>
+          {project.year && <span className="text-[11px] font-mono text-[var(--text-muted)]">{project.year}</span>}
         </div>
       </div>
     </div>

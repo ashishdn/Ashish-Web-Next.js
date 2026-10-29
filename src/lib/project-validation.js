@@ -28,9 +28,19 @@ export function normalizeProjectInput(input) {
   const category = cleanText(input.category, 140);
   const description = cleanText(input.description, 1200);
   const slug = slugify(input.slug || title);
+  const siteUrl = cleanText(input.siteUrl, 500);
 
   if (!title || !category || !description || !slug) {
     throw new Error('Title, category, description, and a valid slug are required.');
+  }
+
+  if (siteUrl) {
+    try {
+      const parsedUrl = new URL(siteUrl);
+      if (!['http:', 'https:'].includes(parsedUrl.protocol)) throw new Error();
+    } catch {
+      throw new Error('Live website URL must be a valid http or https URL.');
+    }
   }
 
   const metrics = Array.isArray(input.metrics)
@@ -51,6 +61,7 @@ export function normalizeProjectInput(input) {
     slug,
     title,
     category,
+    siteUrl,
     demoDomain: cleanText(input.demoDomain, 240),
     description,
     technologies: cleanList(input.technologies, 24, 60),

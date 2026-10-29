@@ -137,9 +137,8 @@ export default function Hero() {
                 className="card-base p-6 sm:p-7 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-3xl shadow-2xs text-center sm:text-left hover:border-[var(--border-accent)]"
               >
                 <div className="font-display font-extrabold text-3xl sm:text-4xl lg:text-[44px] text-[var(--text-primary)] tracking-tight mb-2">
-                  <span className="text-[var(--text-accent)]">{stat.value.replace(/[0-9]/g, '')}</span>
                   <span>{stat.value.replace(/[^0-9]/g, '')}</span>
-                  <span className="text-[var(--text-accent)]">{stat.value.includes('%') ? '%' : '+'}</span>
+                  <span className="text-[var(--text-accent)]">{stat.value.replace(/[0-9]/g, '')}</span>
                 </div>
                 <div className="font-sans font-bold text-sm sm:text-[15px] text-[var(--text-primary)] mb-1">
                   {stat.label}

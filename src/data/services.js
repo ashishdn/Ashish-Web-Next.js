@@ -1,8 +1,8 @@
-export const servicesData = {
+﻿export const servicesData = {
   eyebrow: "SERVICES & SOLUTIONS",
   heading: "Specialized Web Services",
   subtitle:
-    "Tailored, end-to-end web and WordPress engineering services designed to drive measurable business growth, speed, and long-term reliability.",
+    "Custom WordPress, Elementor, WooCommerce, and modern web development, with practical integrations that support your business goals.",
 
   services: [
     {
@@ -11,13 +11,13 @@ export const servicesData = {
       title: "Custom WordPress Development",
       icon: "code",
       description:
-        "Bespoke, lightweight WordPress themes and tailored architectures built for speed, security, and effortless content management.",
+        "Custom, lightweight WordPress websites built for performance, flexibility, and scalability. From advanced content architecture to API integrations and AI-ready functionality, I develop WordPress solutions tailored to real business needs.",
       deliverables: [
-        "Custom theme creation with zero code bloat",
-        "Custom Post Types (CPT) and taxonomy structures",
-        "Advanced Custom Fields (ACF) integration",
-        "Cross-device responsive testing",
-        "SEO-friendly semantic markup",
+        "Custom WordPress themes and templates",
+        "Custom Post Types and taxonomies",
+        "Advanced Custom Fields integration",
+        "Responsive and SEO-friendly architecture",
+        "Third-party API and AI service integration",
       ],
       technologies: [
         "WordPress",
@@ -36,13 +36,13 @@ export const servicesData = {
       title: "Elementor & Elementor Pro Mastery",
       icon: "layout",
       description:
-        "Pixel-perfect visual development with Elementor Pro, Crocoblock JetEngine, custom CSS extensions, and dynamic content loops.",
+        "Pixel-perfect Elementor Pro websites with responsive layouts, dynamic content, custom styling, and advanced integrations. Build a professional website today and extend it with AI chatbots, intelligent forms, and automated workflows when your business needs them.",
       deliverables: [
-        "Pixel-perfect layout construction",
-        "Dynamic templates (Single post, Archive, Header/Footer)",
-        "Custom CSS styling & smooth animations",
-        "Tablet & Mobile UI optimization",
-        "Client-friendly visual editing setup",
+        "Pixel-perfect Elementor development",
+        "Dynamic templates and JetEngine integration",
+        "Custom CSS and responsive optimization",
+        "AI chatbot and smart form integration",
+        "API-connected website functionality",
       ],
       technologies: [
         "Elementor",
@@ -60,13 +60,13 @@ export const servicesData = {
       title: "WooCommerce & E-Commerce Solutions",
       icon: "shopping-cart",
       description:
-        "High-converting online stores with custom product showcases, friction-free checkout funnels, and secure payment integrations.",
+        "Build conversion-focused WooCommerce stores with optimized shopping experiences, secure payments, and scalable functionality. Enhance your store with AI-assisted product discovery, customer support, and automated e-commerce workflows.",
       deliverables: [
-        "Complete WooCommerce setup & custom styling",
-        "Stripe, PayPal & multi-gateway integrations",
-        "Product variations, filters & search optimization",
-        "Optimized single-page checkout flow",
-        "Inventory, tax & shipping rules configuration",
+        "WooCommerce store development",
+        "Custom product and checkout layouts",
+        "Payment and shipping integrations",
+        "AI shopping assistant integration",
+        "Product search and customer support automation",
       ],
       technologies: [
         "WooCommerce",
@@ -84,10 +84,10 @@ export const servicesData = {
       title: "Figma to WordPress / Code Conversion",
       icon: "figma",
       description:
-        "Flawless 1:1 translation of Figma, XD, or Sketch designs into clean, responsive, production-ready WordPress or web code.",
+        "Translate Figma, XD, or Sketch designs into clean, responsive WordPress builds and web interfaces with careful attention to detail and maintainable code.",
       deliverables: [
-        "100% pixel-perfect design matching",
-        "Adaptive responsive breakpoints (Mobile, Tablet, Desktop, 4K)",
+        "Careful design matching across key interface details",
+        "Responsive layouts for mobile, tablet, and desktop",
         "Smooth scroll & hover micro-interactions",
         "Clean typography & vector asset optimization",
         "W3C validated, accessible HTML structure",
@@ -108,7 +108,7 @@ export const servicesData = {
       title: "Full-Stack & Modern Web Applications",
       icon: "layers",
       description:
-        "Dynamic, fast web applications and custom client portals powered by React, Next.js, Node.js, and headless architectures.",
+        "Responsive React and Next.js applications, custom APIs, and client portals built with maintainable architecture. Integrate practical AI features and third-party services where they support the project.",
       deliverables: [
         "Single Page Applications (SPAs) & interactive tools",
         "REST API creation and third-party data integration",
@@ -133,10 +133,10 @@ export const servicesData = {
       title: "Website Redesign & Modernization",
       icon: "sparkles",
       description:
-        "Revamping outdated, sluggish websites into modern, high-converting digital flagships with enhanced UX and branding.",
+        "Modernize outdated websites with clearer user journeys, responsive layouts, and maintainable WordPress or frontend implementations.",
       deliverables: [
         "UX audit & layout modernization",
-        "Seamless content and SEO rankings migration",
+        "Content migration with attention to SEO foundations",
         "Mobile-first responsive overhaul",
         "Modern design system with cohesive brand aesthetic",
         "Lead-generation & CTA placement optimization",
@@ -153,17 +153,17 @@ export const servicesData = {
     },
     {
       id: "07",
-      badge: "90+ Scores Guaranteed",
+      badge: "Performance Focused",
       title: "Speed Optimization & Core Web Vitals",
       icon: "zap",
       description:
-        "Supercharging site speed to achieve sub-second load times, 90+ PageSpeed Insights scores, and better search engine rankings.",
+        "Improve website speed and Core Web Vitals through focused optimization, caching, and lightweight implementation. Results depend on the site's starting point and hosting environment.",
       deliverables: [
-        "Google PageSpeed & GTmetrix 90+ scores",
-        "Core Web Vitals (LCP, FID, CLS, INP) passing grade",
-        "Advanced caching setup (Redis / WP Rocket / LSCache)",
-        "Image compression & next-gen format conversion",
-        "Database cleanup & unused CSS/JS elimination",
+        "Performance review and optimization plan",
+        "Core Web Vitals improvement",
+        "Caching configuration",
+        "Image compression and modern formats",
+        "Database and asset cleanup",
       ],
       technologies: [
         "WP Rocket",
@@ -181,13 +181,13 @@ export const servicesData = {
       title: "Website Security, Hardening & Maintenance",
       icon: "shield-check",
       description:
-        "Comprehensive security audits, malware protection, proactive updates, automated backups, and 24/7 reliability.",
+        "Practical WordPress security and maintenance, including updates, backups, and secure integration configuration to support reliable day-to-day operation.",
       deliverables: [
-        "Malware scanning & vulnerability elimination",
+        "Malware scanning and vulnerability remediation",
         "Web Application Firewall (WAF) & brute-force protection",
         "Automated off-site cloud backups setup",
         "Regular plugin, theme & core WordPress updates",
-        "Uptime monitoring & priority emergency support",
+        "Uptime monitoring and maintenance support",
       ],
       technologies: [
         "Wordfence",

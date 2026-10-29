@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cn } from '@/lib/utils';
 
 export default function Badge({
@@ -16,15 +16,15 @@ export default function Badge({
 
   const variantClasses = {
     default:
-      'bg-[#f5f7fa] text-[#3d587c] border border-[#dbe5f2] font-mono',
+      'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-mono',
     accent:
-      'bg-[#eef5ff] text-[#2864f0] border border-[#dbe5f2] font-mono font-medium',
+      'bg-[var(--accent-primary-soft)] text-[var(--text-accent)] border border-[var(--border-subtle)] font-mono font-medium',
     success:
-      'bg-[#eafff4] text-[#009c71] border border-[#a6f2cf] font-mono font-medium',
+      'bg-[var(--accent-secondary-soft)] text-[var(--accent-secondary)] border border-[var(--border-teal)] font-mono font-medium',
     navy:
-      'bg-[#0e172e] text-white border border-[#0e172e] font-sans font-medium',
+      'bg-[var(--bg-secondary)] text-[var(--text-primary)] border border-[var(--border-default)] font-sans font-medium',
     outline:
-      'bg-white text-[#3d587c] border border-[#dbe5f2] font-sans font-medium',
+      'bg-[var(--bg-card)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-sans font-medium',
   };
 
   return (
@@ -41,10 +41,10 @@ export default function Badge({
           className={cn(
             'w-1.5 h-1.5 rounded-full shrink-0',
             variant === 'success'
-              ? 'bg-[#009c71] animate-pulse'
+              ? 'bg-[var(--accent-secondary)] animate-pulse'
               : variant === 'accent'
-              ? 'bg-[#2864f0]'
-              : 'bg-slate-400'
+              ? 'bg-[var(--accent-primary)]'
+              : 'bg-[var(--text-muted)]'
           )}
         />
       )}

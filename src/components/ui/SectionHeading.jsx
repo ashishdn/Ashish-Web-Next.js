@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { cn } from '@/lib/utils';
 
 export default function SectionHeading({
@@ -21,21 +21,21 @@ export default function SectionHeading({
     >
       {eyebrow && (
         <div className={cn('inline-flex items-center mb-3.5', isCenter && 'justify-center')}>
-          <span className="font-mono text-[11px] md:text-xs font-semibold tracking-wider uppercase px-3.5 py-1 rounded-full bg-[#eef5ff] text-[#2864f0] border border-[#dbe5f2]">
+          <span className="font-mono text-[11px] md:text-xs font-semibold tracking-wider uppercase px-3.5 py-1 rounded-full bg-[var(--accent-primary-soft)] text-[var(--text-accent)] border border-[var(--border-subtle)]">
             {eyebrow}
           </span>
         </div>
       )}
 
       {heading && (
-        <h2 className="text-3xl sm:text-4xl md:text-[46px] font-extrabold font-display text-[#090909] tracking-tight leading-[1.12] mb-4">
+        <h2 className="text-3xl sm:text-4xl md:text-[46px] font-extrabold font-display text-[var(--text-primary)] tracking-tight leading-[1.12] mb-4">
           {heading}{' '}
-          {highlight && <span className="text-[#2864f0]">{highlight}</span>}
+          {highlight && <span className="text-[var(--text-accent)]">{highlight}</span>}
         </h2>
       )}
 
       {subtitle && (
-        <p className="text-[#3d587c] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl mx-auto">
+        <p className="text-[var(--text-secondary)] text-sm sm:text-base md:text-[17px] leading-relaxed max-w-2xl mx-auto">
           {subtitle}
         </p>
       )}

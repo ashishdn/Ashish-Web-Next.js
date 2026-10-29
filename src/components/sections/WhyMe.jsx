@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { whyMeData } from '@/data/experience';
@@ -10,7 +10,7 @@ export default function WhyMe() {
   const { eyebrow, heading, subtitle, cards } = whyMeData;
 
   return (
-    <section id="why-me" className="py-20 md:py-28 border-t border-[#cbd9ed] bg-gradient-to-b from-[#edf2fc] via-[#f4f7fe] to-[#edf2fc] relative overflow-hidden">
+    <section id="why-me" className="py-20 md:py-28 border-t border-[var(--border-default)] bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none grid-background-soft opacity-60" />
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         <Reveal>

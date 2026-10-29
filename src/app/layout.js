@@ -1,10 +1,10 @@
-import './globals.css';
+﻿import './globals.css';
 import { siteConfig } from '@/data/site';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 
 export const metadata = {
-  title: `${siteConfig.brand} — ${siteConfig.title}`,
+  title: siteConfig.title,
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
   alternates: {
@@ -15,8 +15,13 @@ export const metadata = {
   publisher: siteConfig.author,
   keywords: [
     'WordPress Developer',
-    'Elementor Pro Specialist',
-    'WooCommerce Expert',
+    'Elementor Pro Developer',
+    'WooCommerce Developer',
+    'Custom WordPress Development',
+    'WordPress AI Integration',
+    'AI Chatbot Integration',
+    'AI Workflow Automation',
+    'React Next.js Developer',
     'Next.js Developer',
     'React Web Solutions',
     'Figma to WordPress',
@@ -29,13 +34,13 @@ export const metadata = {
     type: 'website',
     locale: 'en_US',
     url: siteConfig.url,
-    title: `${siteConfig.brand} — ${siteConfig.title}`,
+    title: siteConfig.title,
     description: siteConfig.description,
     siteName: siteConfig.brand,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${siteConfig.brand} — ${siteConfig.title}`,
+    title: `${siteConfig.brand} â€” ${siteConfig.title}`,
     description: siteConfig.description,
     creator: '@ashishweb',
   },
@@ -53,7 +58,7 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: '#ffffff',
+  themeColor: '#080c18',
   width: 'device-width',
   initialScale: 1,
 };
@@ -73,7 +78,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-screen flex flex-col bg-[#f0f4fa] text-[#090909] font-sans antialiased selection:bg-[#dbeafe] selection:text-[#1e3a8a]">
+      <body className="min-h-screen flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] font-sans antialiased selection:bg-[rgba(113,91,255,0.38)] selection:text-white">
         <Header />
         <main className="flex-1 w-full">{children}</main>
         <Footer />

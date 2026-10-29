@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
@@ -26,15 +26,15 @@ export default function Button({
 
   const variantClasses = {
     primary:
-      'bg-[#0e172e] text-white hover:bg-[#1a294d] border border-[#0e172e] shadow-sm hover:shadow',
+      'bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-primary-hover)] hover:text-[var(--bg-primary)] border border-[var(--accent-primary)] shadow-sm hover:shadow',
     secondary:
-      'bg-white text-[#090909] border border-[#dbe5f2] hover:border-[#cbd9ed] hover:bg-[#f8fafc] shadow-2xs',
+      'bg-transparent text-[var(--text-primary)] border border-[var(--border-default)] hover:border-[var(--border-accent)] hover:bg-[var(--bg-card-hover)] shadow-2xs',
     whatsapp:
-      'bg-[#eafff4] text-[#009c71] border border-[#a6f2cf] hover:bg-[#d8fbe7] hover:border-[#7cebb7] shadow-2xs',
+      'bg-[var(--accent-secondary-soft)] text-[var(--accent-secondary)] border border-[var(--border-teal)] hover:bg-[var(--accent-secondary-soft)] hover:border-[var(--accent-secondary)] shadow-2xs',
     accent:
-      'bg-[#2864f0] text-white hover:bg-[#1754de] border border-[#2864f0] shadow-sm hover:shadow',
+      'bg-[var(--accent-primary)] text-white hover:bg-[var(--accent-primary-hover)] hover:text-[var(--bg-primary)] border border-[var(--border-accent)] shadow-sm hover:shadow',
     ghost:
-      'bg-transparent text-[#3d587c] hover:bg-[#f1f5f9] hover:text-[#090909]',
+      'bg-transparent text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]',
   };
 
   const combinedClasses = cn(

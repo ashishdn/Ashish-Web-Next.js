@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -41,15 +41,15 @@ export default function Header() {
       <header
         className={`sticky top-0 z-40 w-full transition-all duration-200 ${
           isScrolled
-            ? 'bg-white/90 backdrop-blur-md border-b border-[#cbd9ed] shadow-xs'
-            : 'bg-[#f0f4fa]/80 backdrop-blur-md border-b border-[#dbe5f2]/70'
+            ? 'bg-[var(--bg-primary)]/90 backdrop-blur-md border-b border-[var(--border-subtle)] shadow-xs'
+            : 'bg-[var(--bg-primary)]/80 backdrop-blur-md border-b border-[var(--border-subtle)]/70'
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/#home" className="flex items-center gap-2 group">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#2864f0] transition-transform group-hover:scale-125" />
-            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[#090909]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] transition-transform group-hover:scale-125" />
+            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[var(--text-primary)]">
               {siteConfig.brand}
             </span>
           </Link>
@@ -66,13 +66,13 @@ export default function Header() {
                   href={`/${item.href}`}
                   className={`relative px-3 py-2 text-xs xl:text-[13px] font-mono transition-colors duration-150 ${
                     isActive
-                      ? 'text-[#090909] font-bold'
-                      : 'text-[#3d587c] hover:text-[#090909]'
+                      ? 'text-[var(--accent-secondary)] font-bold'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <span>{item.label}</span>
                   {isActive && (
-                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#2864f0] rounded-full" />
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[var(--accent-secondary)] rounded-full" />
                   )}
                 </a>
               );
@@ -97,7 +97,7 @@ export default function Header() {
             {/* Hamburger Button for mobile */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 rounded-xl text-[#3d587c] hover:text-[#090909] hover:bg-[#f1f5fa] transition-colors border border-[#dbe5f2]"
+              className="lg:hidden p-2 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] transition-colors border border-[var(--border-subtle)]"
               aria-label="Open navigation menu"
             >
               <Menu className="w-5 h-5" />

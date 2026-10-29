@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { servicesData } from '@/data/services';
@@ -10,7 +10,7 @@ export default function Services() {
   const { eyebrow, heading, subtitle, services } = servicesData;
 
   return (
-    <section id="services" className="py-20 md:py-28 bg-gradient-to-br from-[#eaf1fb] via-[#f3f7fd] to-[#e8f0fa] border-t border-[#cbd9ed]">
+    <section id="services" className="py-20 md:py-28 bg-gradient-to-br from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] border-t border-[var(--border-default)]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         <Reveal>
           <SectionHeading

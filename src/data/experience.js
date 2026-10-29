@@ -1,14 +1,14 @@
-export const experienceData = {
+﻿export const experienceData = {
   eyebrow: "CAREER TIMELINE",
   heading: "Professional Work Experience",
   subtitle:
-    "Demonstrated engineering reliability across client engagements, agency partnerships, and high-impact digital solutions.",
+    "Web development across custom WordPress builds, Elementor Pro, WooCommerce, and modern frontend projects.",
 
   experience: {
     role: "Senior Web Developer & WordPress Specialist",
     company: "Exprovia",
     location: "Rajshahi, Bangladesh",
-    period: "2024 – Present",
+    period: "2024 â€“ Present",
     type: "Full-Time",
     description:
       "Directing end-to-end web development, bespoke WordPress engineering, and e-commerce solutions for over 80+ international clients across the US, UK, Canada, Australia, and Europe.",
@@ -36,7 +36,7 @@ export const whyMeData = {
   eyebrow: "WHY CHOOSE ASHISH",
   heading: "Uncompromised Quality Execution",
   subtitle:
-    "No shortcuts, zero code bloat. Here is what you can rely on when collaborating with me on your next web initiative.",
+    "Thoughtful development, clear communication, and practical support for your next website project.",
 
   cards: [
     {
@@ -44,48 +44,48 @@ export const whyMeData = {
       icon: "layout",
       title: "Pixel-Perfect Fidelity",
       description:
-        "I don’t approximate designs. I translate Figma and XD files with exact typography sizes, letter-spacing, padding math, and micro-interactions.",
-      guarantee: "Guaranteed Quality Standard",
+        "I translate design files into responsive interfaces with careful attention to typography, spacing, usability, and maintainable implementation.",
+      guarantee: "Quality Focus",
     },
     {
       id: "speed",
       icon: "zap",
-      title: "Sub-Second Speed & Core Web Vitals",
+      title: "Performance-Focused Engineering",
       description:
-        "No bloated templates or 50 unnecessary plugins. I optimize assets, CSS, and database queries for 90+ PageSpeed scores.",
-      guarantee: "Guaranteed Quality Standard",
+        "I focus on lightweight implementations, optimized assets, caching, and Core Web Vitals, with results shaped by each site's code and hosting.",
+      guarantee: "Quality Focus",
     },
     {
       id: "architecture",
       icon: "code",
-      title: "Clean, Maintainable Architecture",
+      title: "Flexible & Scalable Solutions",
       description:
-        "Your website is built so you or your team can easily update text, images, and products in the future without breaking the layout.",
-      guarantee: "Guaranteed Quality Standard",
+        "I build manageable websites that can support future content, APIs, integrations, and features as your business evolves.",
+      guarantee: "Built to Adapt",
     },
     {
       id: "security",
       icon: "shield",
-      title: "Enterprise Security Hardening",
+      title: "Secure & Reliable Development",
       description:
-        "Proactive protection with firewalls, brute-force shields, secure file permissions, and automated backups to keep your data safe.",
-      guarantee: "Guaranteed Quality Standard",
+        "I use sensible security practices, secure integration configurations, updates, and backups to help protect your website.",
+      guarantee: "Security Minded",
     },
     {
       id: "communication",
       icon: "message-square",
-      title: "Transparent, Fast Communication",
+      title: "Clear Communication",
       description:
-        "Daily progress checkpoints, video walkthroughs, and prompt replies. I operate across US, UK, and European business hours.",
-      guarantee: "Guaranteed Quality Standard",
+        "Clear requirements, transparent project updates, and practical collaboration with clients across international time zones.",
+      guarantee: "Clear Collaboration",
     },
     {
       id: "support",
       icon: "clock",
-      title: "Reliable Post-Launch Support",
+      title: "Long-Term Website Support",
       description:
-        "My job doesn’t end on deployment day. I provide a 30-day bug-free warranty and continuous maintenance options for complete peace of mind.",
-      guarantee: "Guaranteed Quality Standard",
+        "I can support ongoing maintenance, improvements, integrations, and technical assistance as your website needs change.",
+      guarantee: "Ongoing Support",
     },
   ],
 };
@@ -94,23 +94,23 @@ export const aboutData = {
   eyebrow: "ABOUT ASHISH",
   heading: "Behind The Code",
   subtitle:
-    "Bridging high-end visual design aesthetics and rock-solid backend architecture with over 4 years of proven production experience.",
+    "I build practical web experiences that pair considered visual design with dependable development.",
 
   philosophy: {
     badge: "The Engineering Philosophy",
     heading:
-      "Transforming complex concepts into seamless, high-converting digital products.",
+      "Building professional websites and useful digital experiences for growing businesses.",
     paragraph1:
-      "I am Ashish Kumar Deb Nath, a passionate Web Developer with over 3 years of professional experience crafting robust web solutions. My core expertise lies at the intersection of custom frontend engineering and deep WordPress architecture, allowing me to build websites that are not only visually immaculate but also engineered for extreme speed, rock-solid security, and effortless client manageability.",
+      "I'm Ashish Kumar Deb Nath, a web developer specializing in WordPress, Elementor Pro, WooCommerce, and modern frontend technologies. I create websites that bring together thoughtful design, reliable functionality, strong performance, and a seamless user experience.",
     paragraph2:
-      "Whether it’s building a bespoke WordPress theme from scratch, transforming Figma prototypes into pixel-perfect Elementor Pro / JetEngine experiences, setting up high-conversion WooCommerce stores, or developing full-stack web applications, I take end-to-end ownership of the technical execution.",
+      "My work spans custom WordPress themes, advanced Elementor layouts, dynamic WooCommerce stores, responsive interfaces, and custom web applications. I also help businesses explore practical AI integrations, including chatbots, automated workflows, AI-assisted customer experiences, and API-connected solutions.",
     tags: [
-      "Custom WP Theme Dev",
+      "WordPress & Custom Themes",
       "Elementor Pro & JetEngine",
-      "WooCommerce Storefronts",
-      "Figma & PSD to Code",
-      "Next.js & React Integration",
-      "Speed & SEO Optimization",
+      "WooCommerce Development",
+      "AI Chatbot Integration",
+      "React & Next.js",
+      "Performance Optimization",
     ],
   },
 
@@ -140,7 +140,7 @@ export const aboutData = {
     ],
     coverage: {
       label: "GLOBAL CLIENT COVERAGE",
-      value: "US · UK · EU · AU",
+      value: "US Â· UK Â· EU Â· AU",
     },
   },
 
@@ -150,28 +150,28 @@ export const aboutData = {
       icon: "layout",
       title: "Custom Code Meets Visual Precision",
       description:
-        "I combine the power of clean, semantic code (HTML5, CSS3, JavaScript, PHP, React) with flexible CMS tools (Elementor, JetEngine, WooCommerce) so you get the best of both worlds—infinite customization with effortless content editing.",
+        "I combine semantic code, responsive design, and flexible WordPress tools such as Elementor, JetEngine, and WooCommerce to create tailored sites that remain manageable.",
     },
     {
       id: "performance",
       icon: "zap",
       title: "Performance & Speed Obsessed",
       description:
-        "Every line of code is written with performance in mind. I eliminate plugin bloat, optimize assets, configure smart caching, and consistently deliver 90+ Google PageSpeed and Core Web Vitals scores.",
+        "I consider performance from the start, using lightweight development, asset optimization, caching, and technical SEO foundations to support a fast user experience.",
     },
     {
       id: "security",
       icon: "shield-check",
-      title: "Bulletproof Security & Maintenance",
+      title: "Security, Reliability & Maintenance",
       description:
-        "A website is an asset that needs protection. I implement enterprise-grade security hardening, firewall configurations, automated backups, and proactive updates to keep your business safe.",
+        "I support dependable websites with WordPress hardening, secure integrations, backups, updates, and ongoing maintenance suited to each project.",
     },
     {
-      id: "communication",
+      id: "integrations",
       icon: "message-circle",
-      title: "Client-Centric Communication",
+      title: "Smarter Integrations & Automation",
       description:
-        "Clear milestones, transparent progress updates, Loom video walkthroughs, and fast responses across international time zones guarantee a frictionless collaboration from kickoff to launch.",
+        "I connect websites with external platforms, business tools, APIs, and suitable AI services to reduce repetitive work and make digital experiences more useful.",
     },
   ],
 };

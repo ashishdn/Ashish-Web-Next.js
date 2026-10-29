@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import Link from 'next/link';
@@ -13,7 +13,7 @@ export default function Projects() {
   const { eyebrow, heading, subtitle, projects } = projectsData;
 
   return (
-    <section id="projects" className="py-20 md:py-28 border-t border-[#cbd9ed] bg-gradient-to-b from-[#edf3fb] via-[#f3f7fd] to-[#ebf1f9] relative overflow-hidden">
+    <section id="projects" className="py-20 md:py-28 border-t border-[var(--border-default)] bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none grid-background-soft opacity-60" />
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10">
         <Reveal>
@@ -42,7 +42,7 @@ export default function Projects() {
               size="lg"
               icon={ArrowRight}
               iconPosition="right"
-              className="font-mono text-xs sm:text-sm px-8 py-3.5 shadow-2xs hover:border-[#2864f0]"
+              className="font-mono text-xs sm:text-sm px-8 py-3.5 shadow-2xs hover:border-[var(--border-accent)]"
             >
               View All Projects
             </Button>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -23,13 +23,13 @@ export default function ProjectsPage() {
       : projectsData.projects.filter((p) => p.category === selectedCategory);
 
   return (
-    <div className="py-16 md:py-24 bg-gradient-to-b from-[#edf3fb] via-[#f4f7fc] to-[#eaf0f8]">
+    <div className="py-16 md:py-24 bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)]">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12">
         {/* Back Link */}
         <div className="mb-8">
           <Link
             href="/#projects"
-            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[#3d587c] hover:text-[#2864f0] transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[var(--text-secondary)] hover:text-[var(--text-accent)] transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Main Portfolio</span>
@@ -51,8 +51,8 @@ export default function ProjectsPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-full text-xs font-mono transition-all duration-200 cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-[#0e172e] text-white border border-[#0e172e] shadow-xs'
-                  : 'bg-white text-[#3d587c] border border-[#dbe5f2] hover:border-[#cbd9ed] hover:bg-[#f8fafc]'
+                  ? 'bg-[var(--accent-primary)] text-white border border-[var(--accent-primary)] shadow-xs'
+                  : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:border-[var(--border-accent)] hover:bg-[var(--bg-card-hover)]'
               }`}
             >
               {cat}
@@ -68,14 +68,14 @@ export default function ProjectsPage() {
         </div>
 
         {/* Bottom Contact Callout */}
-        <div className="card-base p-8 sm:p-12 bg-white border border-[#dbe5f2] rounded-3xl text-center max-w-2xl mx-auto shadow-2xs">
+        <div className="card-base p-8 sm:p-12 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded-3xl text-center max-w-2xl mx-auto shadow-2xs">
           <Badge variant="accent" size="sm" className="mb-3">
             HAVE A SIMILAR PROJECT?
           </Badge>
-          <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-[#090909] mb-3">
+          <h3 className="text-2xl sm:text-3xl font-extrabold font-display text-[var(--text-primary)] mb-3">
             Let's discuss your next web build.
           </h3>
-          <p className="text-sm text-[#788cae] leading-relaxed mb-6">
+          <p className="text-sm text-[var(--text-muted)] leading-relaxed mb-6">
             Get a tailored architecture roadmap, timeline estimate, and pricing within 24 hours.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">

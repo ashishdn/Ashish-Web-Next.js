@@ -1,8 +1,8 @@
-export const skillsData = {
+﻿export const skillsData = {
   eyebrow: "TECHNICAL CAPABILITIES",
   heading: "Core Technical Expertise",
   subtitle:
-    "Battle-tested proficiency spanning bespoke theme engineering, Elementor architecture, full-stack JavaScript, and core web vitals speed optimization.",
+    "WordPress, Elementor Pro, WooCommerce, and frontend development, with practical API integration and AI-enabled features for modern websites.",
 
   categories: [
     {
@@ -10,7 +10,7 @@ export const skillsData = {
       title: "WordPress & CMS Ecosystem",
       icon: "wordpress",
       introduction:
-        "Deep expertise in custom theme crafting, visual builders, dynamic data, and hardening.",
+        "Custom WordPress themes, visual builders, dynamic content, e-commerce, and site maintenance.",
       skills: [
         {
           name: "WordPress Core",
@@ -105,6 +105,24 @@ export const skillsData = {
           level: "Advanced",
           description:
             "Breakpoints fine-tuning for ultra-wide, desktop, tablet, and mobile screens",
+        },
+        {
+          name: "AI API Integration",
+          level: "Integration capability",
+          description:
+            "Connecting compatible AI services to WordPress sites and web applications through APIs",
+        },
+        {
+          name: "AI Chatbot & Workflow Integration",
+          level: "Integration capability",
+          description:
+            "Adding conversational features and connecting website workflows with business tools",
+        },
+        {
+          name: "Webhooks & REST APIs",
+          level: "Project-based integration",
+          description:
+            "Connecting forms, websites, and external services through APIs and webhooks",
         },
       ],
       footer: "Clean & Robust Guarantee",

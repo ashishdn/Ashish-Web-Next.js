@@ -1,12 +1,12 @@
-export const siteConfig = {
+﻿export const siteConfig = {
   name: "Ashish Kumar Deb Nath",
   brand: "ASHISHWEB",
-  title: "WordPress Developer for International Clients (USA, UK, Australia) | Based in Dhaka, Bangladesh",
+  title: "Ashish Kumar Deb Nath | WordPress, Elementor & AI Integration Developer",
   description:
-    "Expert WordPress & Elementor developer with 3+ years experience building pixel-perfect websites, WooCommerce storefronts, and modern web solutions with React and Next.js.",
+    "WordPress and Elementor Pro developer specializing in custom websites, WooCommerce, AI chatbot integration, workflow automation, and modern web solutions.",
   url: "https://ashishweb.com",
   author: "Ashish Kumar Deb Nath",
-  role: "Web Developer & WordPress Specialist",
+  role: "WordPress Developer | Elementor Pro | WooCommerce | AI Integration",
   location: "Dhaka, Bangladesh",
   email: "dnashish.dev@gmail.com",
   secondaryEmail: "ashish.exprovia@gmail.com",
@@ -15,8 +15,8 @@ export const siteConfig = {
   availabilityStatus: "Available for New Projects & Long-term Contracts",
   tagline: '"Building the Web, One Pixel at a Time. Code. Create. Inspire."',
   footerDescription:
-    "Professional Web Developer & WordPress Specialist crafting high-converting, lightning-fast digital solutions for global clients.",
-  copyright: `© ${new Date().getFullYear()} Ashish Kumar Deb Nath. All rights reserved.`,
+    "WordPress & Elementor Pro developer building responsive websites, WooCommerce stores, modern web applications, and practical AI-integrated solutions for businesses worldwide.",
+  copyright: `Â© ${new Date().getFullYear()} Ashish Kumar Deb Nath. All rights reserved.`,
 
   navigation: [
     { label: "Home", href: "#home" },
@@ -53,42 +53,43 @@ export const siteConfig = {
 
   hero: {
     heading: {
-      pre: "Building high-converting ",
+      pre: "Building high-performing ",
       highlight: "WordPress",
-      post: " websites & modern web solutions.",
+      post: " websites & smarter AI-powered web solutions.",
     },
     intro:
-      "Hi, I’m Ashish Kumar Deb Nath. I’m a WordPress & Elementor expert with 2.5+ years of professional experience, building pixel-perfect websites and scalable web solutions with WordPress, Shopify, Webflow, React, and Next.js.",
+      "Hi, I'm Ashish Kumar Deb Nath, a WordPress & Elementor Pro specialist building modern, responsive, and conversion-focused websites. From custom WordPress development and WooCommerce stores to AI chatbot integration, workflow automation, and intelligent web solutions, I help businesses build websites that look great and work smarter.",
     coreTechLabel: "CORE TECHNOLOGIES & FRAMEWORKS",
     technologies: [
       "WordPress",
       "Elementor Pro",
       "WooCommerce",
+      "AI Integration",
       "React",
       "Next.js",
-      "Figma to Web",
+      "Workflow Automation",
     ],
     expertiseCards: [
       {
         badge: "Elementor Expert",
         icon: "layout",
-        title: "Advanced WordPress & Elementor",
+        title: "WordPress & Elementor Development",
         description:
-          "Custom WordPress websites, advanced Elementor Pro builds, dynamic content, and scalable solutions tailored to your business.",
+          "Custom WordPress websites, advanced Elementor Pro layouts, dynamic content, and flexible integrations designed for performance, scalability, and easy management.",
       },
       {
         badge: "Modern & Responsive",
         icon: "shopping-bag",
-        title: "Shopify & Webflow Development",
+        title: "E-Commerce & CMS Solutions",
         description:
-          "Modern, responsive websites built with Shopify and Webflow, focused on clean design, smooth functionality, and conversions.",
+          "Conversion-focused WooCommerce, Shopify, and Webflow experiences with intuitive customer journeys, seamless integrations, and opportunities for intelligent automation.",
       },
       {
         badge: "Modern Tech Stack",
         icon: "code-2",
-        title: "React & Next.js Solutions",
+        title: "Modern Web & AI Integration",
         description:
-          "Fast and scalable web interfaces using React and Next.js with clean architecture, responsive layouts, and modern development practices.",
+          "Responsive React and Next.js applications, custom APIs, AI-powered features, and workflow integrations that solve real business challenges.",
       },
     ],
   },

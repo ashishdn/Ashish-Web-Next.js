@@ -1,36 +1,29 @@
 {
-    "name":  "bachelorbari",
-    "private":  true,
-    "version":  "0.0.0",
-    "type":  "module",
-    "scripts":  {
-                    "dev":  "next dev",
-                    "build":  "next build",
-                    "start":  "next start",
-                    "clean":  "node --input-type=module -e \"import { rmSync } from \u0027node:fs\u0027; rmSync(\u0027.next\u0027, { recursive: true, force: true })\""
-                },
-    "dependencies":  {
-                         "@better-auth/mongo-adapter":  "^1.7.7",
-                         "@google/genai":  "^2.4.0",
-                         "@tailwindcss/postcss":  "^4.3.3",
-                         "better-auth":  "^1.7.7",
-                         "lucide-react":  "^0.546.0",
-                         "mongodb":  "^7.7.0",
-                         "motion":  "^12.23.24",
-                         "next":  "^16.4.0",
-                         "nodemailer":  "^10.1.0",
-                         "postcss":  "^8.5.30",
-                         "react":  "^19.0.1",
-                         "react-dom":  "^19.0.1"
-                     },
-    "devDependencies":  {
-                            "@types/node":  "^22.14.0",
-                            "@types/react":  "^19.3.0",
-                            "@types/react-dom":  "^19.3.0",
-                            "autoprefixer":  "^10.4.21",
-                            "esbuild":  "^0.28.0",
-                            "tailwindcss":  "^4.3.3",
-                            "tsx":  "^4.21.0",
-                            "typescript":  "^7.0.2"
-                        }
+  "name": "ashishweb",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ashish Kumar Deb Nath - Portfolio & WordPress Expert Recreation",
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --webpack",
+    "build": "next build --webpack",
+    "start": "next start",
+    "clean": "node --input-type=module -e \"import { rmSync } from 'node:fs'; rmSync('.next', { recursive: true, force: true })\""
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "lucide-react": "^0.546.0",
+    "motion": "^12.23.24",
+    "next": "^16.4.0",
+    "postcss": "^8.5.30",
+    "react": "^19.0.1",
+    "react-dom": "^19.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "autoprefixer": "^10.4.21",
+    "tailwindcss": "^4.3.3"
+  }
 }

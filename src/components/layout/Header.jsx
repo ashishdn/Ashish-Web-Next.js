@@ -1,0 +1,118 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { Send, Menu } from 'lucide-react';
+import { siteConfig } from '@/data/site';
+import Button from '../ui/Button';
+import MobileMenu from './MobileMenu';
+
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+
+      const sections = siteConfig.navigation.map((n) => n.href.replace('#', ''));
+      const scrollPosition = window.scrollY + 120;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sectionEl = document.getElementById(sections[i]);
+        if (sectionEl) {
+          const top = sectionEl.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(sections[i]);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <>
+      <header
+        className={`sticky top-0 z-40 w-full transition-all duration-200 ${
+          isScrolled
+            ? 'bg-white/90 backdrop-blur-md border-b border-[#cbd9ed] shadow-xs'
+            : 'bg-[#f0f4fa]/80 backdrop-blur-md border-b border-[#dbe5f2]/70'
+        }`}
+      >
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/#home" className="flex items-center gap-2 group">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#2864f0] transition-transform group-hover:scale-125" />
+            <span className="font-display font-extrabold text-lg sm:text-xl tracking-tight text-[#090909]">
+              {siteConfig.brand}
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
+            {siteConfig.navigation.map((item) => {
+              const sectionId = item.href.replace('#', '');
+              const isActive = activeSection === sectionId;
+
+              return (
+                <a
+                  key={item.label}
+                  href={`/${item.href}`}
+                  className={`relative px-3 py-2 text-xs xl:text-[13px] font-mono transition-colors duration-150 ${
+                    isActive
+                      ? 'text-[#090909] font-bold'
+                      : 'text-[#3d587c] hover:text-[#090909]'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {isActive && (
+                    <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#2864f0] rounded-full" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right CTA & Mobile Toggle */}
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:block">
+              <Button
+                href="/#contact"
+                variant="primary"
+                size="md"
+                icon={Send}
+                iconPosition="right"
+                className="font-mono text-xs"
+              >
+                Get in Touch
+              </Button>
+            </div>
+
+            {/* Hamburger Button for mobile */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 rounded-xl text-[#3d587c] hover:text-[#090909] hover:bg-[#f1f5fa] transition-colors border border-[#dbe5f2]"
+              aria-label="Open navigation menu"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile Drawer */}
+      <MobileMenu
+        isOpen={mobileMenuOpen}
+        onClose={() => setMobileMenuOpen(false)}
+        navigation={siteConfig.navigation}
+        activeSection={activeSection}
+      />
+    </>
+  );
+}

@@ -1,11 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  pageExtensions: ['js', 'ts'],
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx'],
+  images: {
+    unoptimized: true,
+  },
   experimental: {
-    proxyClientMaxBodySize: '15mb',
+    cpus: 1,
+    workerThreads: false,
   },
 };
 
 export default nextConfig;
-

@@ -1,24 +1,78 @@
-﻿# BachelorBari
+# ASHISHWEB — Premium Next.js Portfolio Recreation
 
-Property listings use MongoDB, while Better Auth handles email/password accounts, email verification, and Google sign-in. New submissions stay private until an administrator approves them.
+Faithful, high-performance portfolio recreation for **Ashish Kumar Deb Nath** (**ASHISHWEB**), WordPress & Elementor Specialist and Frontend Engineer.
 
-## Local setup
+## Tech Stack
 
-1. Install Node.js 20.9+ and copy `.env.example` to `.env`.
-2. Set `MONGODB_URI` to a MongoDB Atlas or local MongoDB connection string and choose `MONGODB_DB`.
-3. Set `BETTER_AUTH_SECRET` to a random secret of at least 32 characters. Keep `.env` private.
-4. Add the administrator's email to `ADMIN_EMAILS` before creating that account. Separate multiple addresses with commas. Admin access is assigned server-side; there is no public admin signup or role selector.
-5. Configure SMTP (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`, and `SMTP_FROM`) so verification and sign-in emails can be delivered.
-6. For Google sign-in, create a Google OAuth web client. Add the deployed site's origin as an authorized JavaScript origin and `https://YOUR_DOMAIN/api/auth/callback/google` as an authorized redirect URI. Put the client ID and secret in `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
-7. Set `APP_URL` and `BETTER_AUTH_URL` to the exact deployed origin, run `npm install`, then use `npm run dev` locally or `npm run build && npm start` in production.
+- **Framework**: Next.js 16 (App Router)
+- **Language**: JavaScript (ES6+ / React 19 JSX)
+- **Styling**: Tailwind CSS v4 & Custom Design Tokens
+- **Icons**: Lucide React
+- **Animations**: Motion (Framer Motion v12) with `prefers-reduced-motion` compliance
+- **Typography**: Syne (Display), Inter (Sans), JetBrains Mono (Mono)
 
-Next.js reads `.env` automatically. Set production environment values through the hosting provider's secret manager. MongoDB Atlas must allow connections from the deployed server.
+## Project Structure
 
-## Access and listing flow
+```text
+ashishweb/
+├── src/
+│   ├── app/
+│   │   ├── globals.css         # Theme tokens, grid backgrounds, typography
+│   │   ├── layout.js           # Root layout, Google Fonts, SEO metadata
+│   │   ├── page.js             # Main landing page with all 8 sections
+│   │   ├── not-found.js        # Custom 404 page
+│   │   ├── robots.js           # Robots.txt generator
+│   │   ├── sitemap.js          # Dynamic sitemap generator
+│   │   └── projects/
+│   │       ├── page.js         # All Projects archive with filter
+│   │       └── [slug]/
+│   │           └── page.js     # In-depth project case study pages
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Header.jsx      # Sticky navbar with ScrollSpy & active underline
+│   │   │   ├── Footer.jsx      # Clean two-column footer with Back to Top
+│   │   │   └── MobileMenu.jsx  # Accessible mobile drawer
+│   │   ├── sections/
+│   │   │   ├── Hero.jsx        # Dominant headline, 3 CTAs, tech stack, 4-col stats
+│   │   │   ├── About.jsx       # Engineering philosophy, profile card, 4 feature cards
+│   │   │   ├── Skills.jsx      # 2 large equal-height panels (CMS & Modern Web)
+│   │   │   ├── Services.jsx    # 8 detailed web service cards with deliverables
+│   │   │   ├── Projects.jsx    # 6 browser-inspired mockup cards
+│   │   │   ├── Experience.jsx  # Exprovia career timeline with 4 verified outcomes
+│   │   │   ├── WhyMe.jsx       # 6 quality execution cards with standards
+│   │   │   └── Contact.jsx     # 3 contact cards (copy email, WhatsApp, location) + bottom CTA
+│   │   └── ui/
+│   │       ├── Badge.jsx
+│   │       ├── Button.jsx
+│   │       ├── FeatureCard.jsx
+│   │       ├── GridBackground.jsx
+│   │       ├── ProjectCard.jsx
+│   │       ├── Reveal.jsx
+│   │       ├── SectionHeading.jsx
+│   │       ├── ServiceCard.jsx
+│   │       └── SkillCard.jsx
+│   ├── data/
+│   │   ├── experience.js       # Experience, About & WhyMe data
+│   │   ├── projects.js         # 6 production demo projects & case studies
+│   │   ├── services.js         # 8 specialized web services & deliverables
+│   │   ├── site.js             # Site config, hero details & navigation
+│   │   └── skills.js           # Technical skills data
+│   └── lib/
+│       └── utils.js            # Utility helpers
+```
 
-- Email/password signup sends a verification link. Unverified accounts cannot create posts.
-- Google sign-in uses Google's account verification.
-- `/landlord/dashboard` shows only the signed-in owner's submissions and review status. The owner can delete their own post.
-- `/admin` is available only to users whose email is in `ADMIN_EMAILS`; use `/admin/signup` for the allowlisted administrator account. The API independently checks the stored admin role on every admin request.
-- Posts start as `pending` and only appear on public pages after approval.
-- Public property listings are loaded from MongoDB. The built-in sample property array is no longer used by the app.
+## Getting Started
+
+```bash
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to view the application.
+
+## Production Build
+
+```bash
+npm run build
+npm start
+```

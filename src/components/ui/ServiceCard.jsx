@@ -104,7 +104,7 @@ export default function ServiceCard({ service }) {
             className="group inline-flex items-center gap-2 text-xs sm:text-[13px] font-semibold text-[var(--text-primary)] hover:text-[var(--accent-secondary)] transition-colors"
           >
             <span>{service.actionText}</span>
-            <Send className="w-3.5 h-3.5 text-[var(--accent-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            <Send className="w-3.5 h-3.5 text-[var(--accent-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
           </Link>
           <span className="font-mono text-[11px] text-[var(--text-muted)]">
             {service.statusText}

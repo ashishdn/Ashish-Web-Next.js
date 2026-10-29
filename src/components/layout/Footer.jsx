@@ -92,7 +92,7 @@ export default function Footer() {
             aria-label="Scroll back to top"
           >
             <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform" />
+            <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
           </button>
         </div>
       </div>

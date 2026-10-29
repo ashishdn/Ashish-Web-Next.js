@@ -50,7 +50,7 @@ export default function MobileMenu({
                   key={item.label}
                   href={item.href}
                   onClick={onClose}
-                  className={`px-4 py-2.5 rounded-xl font-mono text-sm transition-all duration-150 flex items-center justify-between ${
+                  className={`px-4 py-2.5 rounded-xl font-mono text-sm transition-all duration-200 ease-out flex items-center justify-between ${
                     isActive
                       ? 'bg-[var(--accent-secondary-soft)] text-[var(--accent-secondary)] font-semibold border border-[var(--border-teal)]'
                       : 'text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'

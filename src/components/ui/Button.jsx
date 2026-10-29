@@ -16,7 +16,7 @@ export default function Button({
   ...props
 }) {
   const baseClasses =
-    'inline-flex items-center justify-center font-medium transition-all duration-200 active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed';
+    'inline-flex items-center justify-center font-medium transition-all duration-[240ms] ease-out active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed';
 
   const sizeClasses = {
     sm: 'text-xs px-3.5 py-1.5 rounded-full gap-1.5',
@@ -46,9 +46,9 @@ export default function Button({
 
   const content = (
     <>
-      {Icon && iconPosition === 'left' && <Icon className="w-4 h-4 shrink-0 transition-transform group-hover:-translate-x-0.5" />}
+      {Icon && iconPosition === 'left' && <Icon className="w-4 h-4 shrink-0 transition-transform duration-200 ease-out group-hover:-translate-x-0.5" />}
       <span>{children}</span>
-      {Icon && iconPosition === 'right' && <Icon className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-0.5" />}
+      {Icon && iconPosition === 'right' && <Icon className="w-4 h-4 shrink-0 transition-transform duration-200 ease-out group-hover:translate-x-0.5" />}
     </>
   );
 

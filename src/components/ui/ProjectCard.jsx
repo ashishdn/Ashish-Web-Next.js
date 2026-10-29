@@ -36,12 +36,12 @@ export default function ProjectCard({ project }) {
             </div>
 
             <div className="w-8 shrink-0 text-right">
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent-secondary-soft)]0 animate-pulse" />
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--accent-secondary)] animate-pulse" />
             </div>
           </div>
 
           {/* Browser Preview Content Area */}
-          <div className="p-4 sm:p-5 aspect-[16/10] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-tertiary)] to-[var(--accent-primary-soft)] flex flex-col justify-between relative overflow-hidden group-hover:scale-[1.01] transition-transform duration-300">
+          <div className="p-4 sm:p-5 aspect-[16/10] bg-gradient-to-br from-[var(--bg-card)] via-[var(--bg-tertiary)] to-[var(--accent-primary-soft)] flex flex-col justify-between relative overflow-hidden group-hover:scale-[1.005] transition-transform duration-[320ms] ease-out">
             {/* Ambient decorative glow */}
             <div
               className="absolute -top-12 -right-12 w-32 h-32 rounded-full blur-2xl opacity-20 pointer-events-none"
@@ -115,7 +115,7 @@ export default function ProjectCard({ project }) {
             className="group/link inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-semibold text-[var(--text-primary)] group-hover:text-[var(--accent-secondary)] transition-colors"
           >
             <span>View Case Study</span>
-            <ArrowUpRight className="w-4 h-4 text-[var(--text-accent)] transition-transform group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+            <ArrowUpRight className="w-4 h-4 text-[var(--text-accent)] transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
           </Link>
           <span className="text-[11px] font-mono text-[var(--text-muted)]">
             {project.year || '2024'}

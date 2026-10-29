@@ -88,7 +88,7 @@ export default function Contact() {
                     className="group inline-flex items-center gap-1.5 font-semibold text-[var(--text-primary)] hover:text-[var(--accent-secondary)] transition-colors"
                   >
                     <span>Compose Email</span>
-                    <Send className="w-3.5 h-3.5 text-[var(--accent-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <Send className="w-3.5 h-3.5 text-[var(--accent-primary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
                   </a>
                   <span className="text-[var(--text-muted)]">Average reply: &lt; 2 hrs</span>
                 </div>
@@ -134,7 +134,7 @@ export default function Contact() {
                     className="group inline-flex items-center gap-1.5 font-semibold text-[var(--text-primary)] hover:text-[var(--accent-secondary)] transition-colors"
                   >
                     <span>Open WhatsApp Chat</span>
-                    <Send className="w-3.5 h-3.5 text-[var(--accent-secondary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                    <Send className="w-3.5 h-3.5 text-[var(--accent-secondary)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200 ease-out" />
                   </a>
                   <span className="text-[var(--text-muted)]">Instant Messaging</span>
                 </div>

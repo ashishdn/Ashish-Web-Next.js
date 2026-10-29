@@ -1,16 +1,14 @@
-﻿'use client';
-
-import React from 'react';
-import Link from 'next/link';
-import { ArrowRight, LayoutGrid } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { projectsData } from '@/data/projects';
+import { getProjects } from '@/lib/mongodb';
 import SectionHeading from '../ui/SectionHeading';
 import ProjectCard from '../ui/ProjectCard';
 import Button from '../ui/Button';
 import Reveal from '../ui/Reveal';
 
-export default function Projects() {
-  const { eyebrow, heading, subtitle, projects } = projectsData;
+export default async function Projects() {
+  const { eyebrow, heading, subtitle } = projectsData;
+  const projects = await getProjects({ publishedOnly: true, featuredOnly: true });
 
   return (
     <section id="projects" className="py-20 md:py-28 border-t border-[var(--border-default)] bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)] relative overflow-hidden">

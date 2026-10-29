@@ -1,10 +1,13 @@
 import { siteConfig } from '@/data/site';
-import { projectsData } from '@/data/projects';
+import { getProjects } from '@/lib/mongodb';
 
-export default function sitemap() {
+export const dynamic = 'force-dynamic';
+
+export default async function sitemap() {
   const baseUrl = siteConfig.url;
 
-  const projectUrls = projectsData.projects.map((project) => ({
+  const projects = await getProjects({ publishedOnly: true });
+  const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly',

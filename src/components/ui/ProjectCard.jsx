@@ -70,7 +70,7 @@ export default function ProjectCard({ project }) {
             </div>
 
             {/* Mini metrics bar */}
-            <div className="relative z-10 pt-3 border-t border-[var(--border-subtle)]/80 grid grid-cols-2 gap-2 bg-[var(--bg-card)]/70 backdrop-blur-xs p-2 rounded-xl border">
+            <div className="relative z-10 grid grid-cols-2 gap-3 bg-[var(--bg-card)]/70 backdrop-blur-xs px-4 py-3.5 rounded-md border border-[var(--border-subtle)]">
               <div>
                 <span className="block text-[9px] font-mono text-[var(--text-muted)]">LOAD TIME</span>
                 <span className="text-[11px] font-bold font-mono text-[var(--text-primary)]">

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import {
@@ -14,42 +14,39 @@ import {
   Layers,
   ChevronRight,
 } from 'lucide-react';
-import { projectsData } from '@/data/projects';
+import { getProjectBySlug, getProjects } from '@/lib/mongodb';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 
-export async function generateStaticParams() {
-  return projectsData.projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params }) {
   const resolvedParams = await params;
-  const project = projectsData.projects.find((p) => p.slug === resolvedParams.slug);
+  const project = await getProjectBySlug(resolvedParams.slug);
 
   if (!project) {
     return { title: 'Project Not Found â€” ASHISHWEB' };
   }
 
   return {
-    title: `${project.title} â€” Case Study | ASHISHWEB`,
-    description: project.description,
+    title: project.seoTitle || project.title,
+    description: project.seoDescription || project.description,
   };
 }
 
 export default async function ProjectDetailPage({ params }) {
   const resolvedParams = await params;
-  const project = projectsData.projects.find((p) => p.slug === resolvedParams.slug);
+  const projects = await getProjects({ publishedOnly: true });
+  const project = projects.find((item) => item.slug === resolvedParams.slug);
 
   if (!project) {
     notFound();
   }
 
   // Find next project
-  const currentIndex = projectsData.projects.findIndex((p) => p.slug === project.slug);
+  const currentIndex = projects.findIndex((item) => item.slug === project.slug);
   const nextProject =
-    projectsData.projects[(currentIndex + 1) % projectsData.projects.length];
+    projects[(currentIndex + 1) % projects.length];
 
   return (
     <article className="py-12 md:py-20 bg-gradient-to-b from-[var(--bg-secondary)] via-[var(--bg-primary)] to-[var(--bg-secondary)]">
@@ -132,7 +129,7 @@ export default async function ProjectDetailPage({ params }) {
         </div>
 
         {/* Verified Impact Metrics */}
-        {project.metrics && (
+        {project.metrics?.length > 0 && (
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
             {project.metrics.map((metric, idx) => (
               <div

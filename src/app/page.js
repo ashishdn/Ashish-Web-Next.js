@@ -7,6 +7,8 @@ import Experience from '@/components/sections/Experience';
 import WhyMe from '@/components/sections/WhyMe';
 import Contact from '@/components/sections/Contact';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   return (
     <>

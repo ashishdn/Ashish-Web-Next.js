@@ -6,6 +6,7 @@ const nextConfig = {
     unoptimized: true,
   },
   experimental: {
+    agentUpgrade: 'security',
     cpus: 1,
     workerThreads: false,
   },

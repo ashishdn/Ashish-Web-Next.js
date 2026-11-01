@@ -17,6 +17,7 @@ import {
 import { getProjectBySlug, getProjects } from '@/lib/mongodb';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import { pageMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
 
@@ -28,10 +29,11 @@ export async function generateMetadata({ params }) {
     return { title: 'Project Not Found â€” ASHISHWEB' };
   }
 
-  return {
+  return pageMetadata({
     title: project.seoTitle || project.title,
     description: project.seoDescription || project.description,
-  };
+    path: `/projects/${project.slug}`,
+  });
 }
 
 export default async function ProjectDetailPage({ params }) {

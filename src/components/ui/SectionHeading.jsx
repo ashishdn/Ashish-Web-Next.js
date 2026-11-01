@@ -8,6 +8,7 @@ export default function SectionHeading({
   subtitle,
   align = 'center',
   className = '',
+  as: Heading = 'h2',
 }) {
   const isCenter = align === 'center';
 
@@ -28,10 +29,10 @@ export default function SectionHeading({
       )}
 
       {heading && (
-        <h2 className="text-3xl sm:text-4xl md:text-[46px] font-extrabold font-display text-[var(--text-primary)] tracking-tight leading-[1.12] mb-4">
+        <Heading className="text-3xl sm:text-4xl md:text-[46px] font-extrabold font-display text-[var(--text-primary)] tracking-tight leading-[1.12] mb-4">
           {heading}{' '}
           {highlight && <span className="text-[var(--text-accent)]">{highlight}</span>}
-        </h2>
+        </Heading>
       )}
 
       {subtitle && (

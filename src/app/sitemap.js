@@ -9,7 +9,9 @@ export default async function sitemap() {
   const projects = await getProjects({ publishedOnly: true });
   const projectUrls = projects.map((project) => ({
     url: `${baseUrl}/projects/${project.slug}`,
-    lastModified: new Date(),
+    ...(project.updatedAt && !Number.isNaN(Date.parse(project.updatedAt))
+      ? { lastModified: new Date(project.updatedAt) }
+      : {}),
     changeFrequency: 'monthly',
     priority: 0.8,
   }));
@@ -17,13 +19,11 @@ export default async function sitemap() {
   return [
     {
       url: baseUrl,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1.0,
     },
     {
       url: `${baseUrl}/projects`,
-      lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },

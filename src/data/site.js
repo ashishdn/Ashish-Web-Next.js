@@ -1,11 +1,12 @@
 ﻿export const siteConfig = {
   name: "Ashish Kumar Deb Nath",
+  seoName: "Ashish Kumar",
   brand: "ASHISHWEB",
-  title: "Ashish Kumar Deb Nath | WordPress, Elementor & AI Integration Developer",
+  title: "Ashish Kumar | WordPress & Elementor Expert",
   description:
-    "WordPress and Elementor Pro developer specializing in custom websites, WooCommerce, AI chatbot integration, workflow automation, and modern web solutions.",
+    "Hire Ashish Kumar for WordPress and Elementor development, website redesign, design-to-WordPress builds and custom web solutions for USA, UK and global businesses.",
   url: "https://ashishweb.com",
-  author: "Ashish Kumar Deb Nath",
+  author: "Ashish Kumar",
   role: "WordPress Developer | Elementor Pro | WooCommerce | AI Integration",
   location: "Dhaka, Bangladesh",
   email: "dnashish.dev@gmail.com",
@@ -53,12 +54,12 @@
 
   hero: {
     heading: {
-      pre: "Building high-performing ",
+      pre: "Expert ",
       highlight: "WordPress",
-      post: " websites & smarter AI-powered web solutions.",
+      post: " & Elementor development, website redesign and custom web solutions.",
     },
     intro:
-      "Hi, I'm Ashish Kumar Deb Nath, a WordPress & Elementor Pro specialist building modern, responsive, and conversion-focused websites. From custom WordPress development and WooCommerce stores to AI chatbot integration, workflow automation, and intelligent web solutions, I help businesses build websites that look great and work smarter.",
+      "Hi, I'm Ashish Kumar (Ashish Kumar Deb Nath), a WordPress and Elementor Pro specialist based in Bangladesh, working remotely with businesses in the USA, UK and worldwide. I build custom WordPress websites, recreate approved reference designs, redesign existing sites and develop custom web solutions with React, Next.js and API integrations.",
     coreTechLabel: "CORE TECHNOLOGIES & FRAMEWORKS",
     technologies: [
       "WordPress",

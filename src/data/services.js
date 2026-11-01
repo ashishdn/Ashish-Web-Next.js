@@ -1,8 +1,8 @@
 ﻿export const servicesData = {
   eyebrow: "SERVICES & SOLUTIONS",
-  heading: "Specialized Web Services",
+  heading: "WordPress, Redesign & Custom Web Services",
   subtitle:
-    "Custom WordPress, Elementor, WooCommerce, and modern web development, with practical integrations that support your business goals.",
+    "WordPress and Elementor development, reference-design recreation, website redesign and custom web solutions for businesses in the USA, UK and worldwide.",
 
   services: [
     {
@@ -81,10 +81,10 @@
     {
       id: "04",
       badge: "Pixel-Perfect",
-      title: "Figma to WordPress / Code Conversion",
+      title: "Figma & Reference Design to WordPress",
       icon: "figma",
       description:
-        "Translate Figma, XD, or Sketch designs into clean, responsive WordPress builds and web interfaces with careful attention to detail and maintainable code.",
+        "Turn your Figma, XD or Sketch designs and approved reference layouts into responsive WordPress and Elementor websites. Recreate the layout and interactions with your own branding, content and maintainable code.",
       deliverables: [
         "Careful design matching across key interface details",
         "Responsive layouts for mobile, tablet, and desktop",

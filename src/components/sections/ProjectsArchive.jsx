@@ -32,6 +32,7 @@ export default function ProjectsArchive({ projects }) {
         </div>
 
         <SectionHeading
+          as="h1"
           eyebrow="PORTFOLIO ARCHIVE"
           heading="All Production Projects"
           subtitle="Explore in-depth case studies across commercial real estate, corporate compliance, automotive marketplaces, and specialized web engineering."

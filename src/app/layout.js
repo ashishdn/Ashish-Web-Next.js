@@ -7,9 +7,6 @@ export const metadata = {
   title: siteConfig.title,
   description: siteConfig.description,
   metadataBase: new URL(siteConfig.url),
-  alternates: {
-    canonical: '/',
-  },
   authors: [{ name: siteConfig.author, url: siteConfig.url }],
   creator: siteConfig.author,
   publisher: siteConfig.author,
@@ -42,7 +39,6 @@ export const metadata = {
     card: 'summary_large_image',
     title: `${siteConfig.brand} â€” ${siteConfig.title}`,
     description: siteConfig.description,
-    creator: '@ashishweb',
   },
   robots: {
     index: true,
